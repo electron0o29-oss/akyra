@@ -1,0 +1,344 @@
+/* ═══════════════════════════════════════════
+   RESPONSIVE — AKYRA Landing Page
+   Breakpoints: Tablet ≤1199px · Mobile ≤767px · Small ≤374px
+═══════════════════════════════════════════ */
+
+/* ─── Hamburger (hidden on desktop) ─── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 201;
+}
+.nav-hamburger span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--white);
+  transition: transform .3s ease, opacity .2s ease;
+  transform-origin: center;
+}
+#nav.nav-open .nav-hamburger span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+#nav.nav-open .nav-hamburger span:nth-child(2) {
+  opacity: 0;
+}
+#nav.nav-open .nav-hamburger span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ═══════════════════════════════════════════
+   TABLET — max-width: 1199px
+═══════════════════════════════════════════ */
+@media (max-width: 1199px) {
+
+  /* Padding global */
+  .wrap, .sec-intro, .greek-rule { padding-left: 32px; padding-right: 32px; }
+  .sec-intro { padding-top: 64px; padding-bottom: 48px; }
+
+  /* Nav */
+  #nav { padding: 0 24px; }
+  .nav-links { gap: 20px; }
+  .nav-badge { font-size: 9px; padding: 5px 10px; }
+  .nav-dot { width: 5px; height: 5px; }
+
+  /* Hero */
+  .hero-inner { padding: 60px 32px 48px; }
+  .hero-cols { grid-template-columns: 1fr 320px; gap: 48px; }
+  .hm { padding: 24px 28px; }
+  .hm-val { font-size: 42px; }
+
+  /* Stats bar */
+  .lsb-item { padding: 0 20px; }
+
+  /* Snap stats */
+  .snap-stat { padding: 28px 28px; }
+  .snap-stat-val { font-size: 42px; }
+
+  /* Angel grid */
+  .angel-grid { padding: 0 32px 64px; gap: 36px; }
+
+  /* Factions grid */
+  .factions-grid { padding: 0 32px 64px; grid-template-columns: repeat(2, 1fr); }
+
+  /* Presale */
+  .presale-inner { gap: 48px; padding: 56px 32px; }
+
+  /* Presale advantages */
+  .presale-advantages { grid-template-columns: repeat(2, 1fr); }
+  .pa-card:nth-child(2) { border-right: none; }
+
+  /* CTA */
+  #cta { padding: 88px 32px 72px; }
+
+  /* Footer */
+  footer { padding: 24px 32px; }
+
+  /* FAQ */
+  .faq-q { padding: 24px 32px; }
+  .faq-a-inner { padding: 0 32px 24px; }
+}
+
+
+/* ═══════════════════════════════════════════
+   MOBILE — max-width: 767px
+═══════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* ── Body ── */
+  body { padding-top: 60px; }
+
+  /* ── Global padding ── */
+  .wrap, .sec-intro, .greek-rule { padding-left: 20px; padding-right: 20px; }
+  .sec-intro {
+    padding: 48px 20px 32px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .sec-h2 { font-size: clamp(24px, 7vw, 42px); margin-top: 10px; }
+
+  /* ── Nav ── */
+  #nav { padding: 0 20px; }
+  .nav-hamburger { display: flex; }
+  .nav-links, .nav-right { display: none; }
+
+  #nav.nav-open .nav-links {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    top: 60px;
+    background: var(--bg);
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 56px 20px 40px;
+    gap: 28px;
+    z-index: 198;
+    border-top: 1px solid var(--line);
+    overflow-y: auto;
+  }
+  #nav.nav-open .nav-links a {
+    font-size: 18px;
+    letter-spacing: .06em;
+    color: var(--white);
+  }
+  #nav.nav-open .nav-right {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    z-index: 199;
+  }
+  #nav.nav-open .nav-right .btn { width: 100%; justify-content: center; }
+
+  /* ── Stats Bar ── */
+  #live-stats-bar { display: none; }
+
+  /* ── Trust Bar ── */
+  .trust-bar { height: 24px; }
+  .trust-label { padding: 0 16px 0 20px; font-size: 7px; }
+  .trust-item { padding: 0 24px; font-size: 8px; }
+  .trust-dot { padding: 0 8px; }
+
+  /* ── Neural canvas ── */
+  #neural-canvas { display: none; }
+
+  /* ── Hero ── */
+  .hero-inner { padding: 32px 20px 24px; }
+  .hero-eyebrow { margin-bottom: 24px; font-size: 8px; letter-spacing: .3em; }
+  .hero-h1 { margin-bottom: 28px; }
+  .hero-gk {
+    font-size: 8px;
+    letter-spacing: .3em;
+    margin-right: 8px;
+  }
+  .hero-cols { grid-template-columns: 1fr; gap: 32px; }
+  .hero-desc { max-width: 100%; margin-bottom: 24px; font-size: 15px; }
+  .hero-actions { flex-wrap: wrap; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hero-metrics { grid-template-columns: repeat(2, 1fr); }
+  .hm { padding: 20px 16px; }
+  .hm-val { font-size: 32px; }
+  .hm-lbl { font-size: 8px; letter-spacing: .2em; }
+
+  /* Hero last death box */
+  .hero-death-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+  .hero-death-info { margin-left: 0; font-size: 10px; }
+
+  /* ── What Is AKYRA ── */
+  .what-tagline { padding: 0 20px; margin-bottom: 32px; }
+  .what-cols { grid-template-columns: 1fr; }
+  .what-col { border-right: none; border-bottom: 1px solid var(--line); padding: 28px 20px; }
+  .what-col:last-child { border-bottom: none; }
+  .what-title { font-size: 24px; }
+
+  /* ── Snapshot Stats ── */
+  .snap-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .snap-stat { padding: 20px 16px; }
+  .snap-stat:nth-child(2) { border-right: none; }
+  .snap-stat-val { font-size: 36px; }
+  .snap-stat-last { border-right: none; }
+
+  /* ── Society Map ── */
+  .bmap-canvas { height: 300px; }
+  .map-legend { left: 16px; top: 12px; }
+  .map-hint { right: 16px; top: 12px; }
+
+  /* ── Map stats bar ── */
+  .map-stats-bar { padding: 20px 20px; }
+  .faction-bar-legend { gap: 12px; }
+
+  /* ── Society Feed ── */
+  .society-feed-header { padding: 14px 20px; }
+  .society-feed-body { max-height: 260px; }
+  .feed-stat { padding: 16px 20px; }
+  .feed-stat-val { font-size: 22px; }
+
+  /* ── Angel + Factions ── */
+  .angel-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px 48px;
+    gap: 32px;
+  }
+  .angel-desc { font-size: 14px; margin-bottom: 24px; }
+  .angel-scoring-grid { grid-template-columns: 1fr; }
+  .angel-stats-grid { grid-template-columns: 1fr; }
+  .angel-row { padding: 10px 16px; }
+  .angel-verdict { padding: 20px; }
+  .angel-verdict-name { font-size: 22px; }
+  .angel-stats-val { font-size: 28px; }
+
+  /* ── Factions grid ── */
+  .factions-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px 48px;
+    gap: 0;
+    background: none;
+  }
+  .faction-card { border-bottom: 1px solid var(--line); }
+  .fc-name { font-size: 20px; }
+
+  /* ── Presale ── */
+  .presale-inner { grid-template-columns: 1fr; gap: 40px; padding: 48px 20px; }
+  .presale-h2 { font-size: clamp(28px, 7vw, 48px); }
+  .presale-hook { font-size: 16px; padding: 14px 16px; }
+
+  /* ── Presale advantages ── */
+  .presale-advantages { grid-template-columns: 1fr; }
+  .pa-card { border-right: none; border-bottom: 1px solid var(--line); padding: 28px 20px; }
+  .pa-card:last-child { border-bottom: none; }
+
+  /* ── Terminal ── */
+  .terminal-body {
+    font-size: 10px;
+    padding: 16px;
+    min-height: 200px;
+    max-height: 260px;
+  }
+
+  /* ── Token ── */
+  .token-split { grid-template-columns: 1fr; }
+  .token-col { padding: 48px 20px; border-right: none; border-bottom: 1px solid var(--line); }
+  .token-col:last-child { border-bottom: none; }
+  .token-big { font-size: 60px; }
+  .waitlist-counter { width: 100%; justify-content: center; }
+  .wc-num { font-size: 36px; }
+  .alloc .a-row { grid-template-columns: 40px 1fr 40px; }
+
+  /* ── CTA ── */
+  #cta { padding: 72px 20px 60px; }
+  .cta-h { font-size: clamp(36px, 10vw, 80px); }
+  .cta-sub { font-size: 15px; margin-bottom: 32px; }
+  .cta-acts { flex-direction: column; align-items: stretch; gap: 12px; }
+  .cta-acts .btn { width: 100%; justify-content: center; }
+
+  /* ── Footer ── */
+  footer { flex-direction: column; gap: 16px; align-items: center; text-align: center; padding: 24px 20px; }
+  .f-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+  /* ── Dialog boxes ── */
+  .dlg { font-size: 10px; line-height: 1.8; padding: 12px 14px; }
+  .dlg-speaker { font-size: 7px; }
+
+  /* ── FAQ ── */
+  .faq-q { padding: 20px 20px; }
+  .faq-a-inner { padding: 0 20px 20px; }
+  .faq-q-text { font-size: 14px; }
+
+  /* ── Tick diagram ── */
+  .tick-diagram { padding: 48px 20px; }
+  .tick-flow { flex-direction: column; gap: 12px; }
+  .tick-arrow { transform: rotate(90deg); }
+
+  /* ── USP grid ── */
+  .usp-grid { grid-template-columns: 1fr; padding: 0 20px 48px; gap: 0; background: none; }
+  .usp-card { border-bottom: 1px solid var(--line); padding: 32px 20px; }
+  .usp-card:last-child { border-bottom: none; }
+  .usp-title { font-size: 20px; }
+
+  /* ── Architecture ── */
+  .arch-layers { padding: 0 20px 48px; }
+  .arch-layer { padding: 20px 20px; }
+  .arch-layer-title { font-size: 18px; }
+  .arch-layer-tech { font-size: 10px; }
+  .contracts-grid { grid-template-columns: 1fr; padding: 0 20px 48px; gap: 0; background: none; }
+  .contract-card { border-bottom: 1px solid var(--line); padding: 24px 20px; }
+  .contract-card:last-child { border-bottom: none; }
+  .arch-footer { padding: 0 20px 32px; font-size: 10px; }
+
+  /* ── Fee split ── */
+  .fee-split-box { padding: 20px 16px; }
+  .fee-split-pct { font-size: 16px; }
+  .fee-split-label { font-size: 10px; }
+
+  /* ── Roadmap ── */
+  .rm-timeline { padding: 0 20px 48px; }
+  .rm-line { display: none; }
+  .rm-grid { grid-template-columns: 1fr; gap: 0; }
+  .rm-phase { border-right: none; border-bottom: 1px solid var(--line); padding: 28px 0; }
+  .rm-phase:first-child { padding-left: 0; }
+  .rm-phase:not(:first-child) { padding-left: 0; }
+  .rm-phase:last-child { border-bottom: none; }
+  .rm-label { font-size: 22px; }
+  .rm-footer { padding: 20px 20px 0; }
+  .rm-footer-metrics { gap: 6px; }
+  .rm-footer-metrics span { font-size: 10px; padding: 3px 8px; }
+}
+
+
+/* ═══════════════════════════════════════════
+   SMALL MOBILE — max-width: 374px
+═══════════════════════════════════════════ */
+@media (max-width: 374px) {
+  .hero-gk {
+    font-size: 7px;
+    margin-right: 6px;
+  }
+  .hero-metrics { grid-template-columns: 1fr; }
+  .hm-val { font-size: 28px; }
+  .snap-stats-grid { grid-template-columns: 1fr; }
+  .token-big { font-size: 48px; }
+  .cta-h { font-size: clamp(28px, 10vw, 60px); }
+  .angel-stats-grid { grid-template-columns: 1fr; }
+}

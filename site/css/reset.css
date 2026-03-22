@@ -1,0 +1,47 @@
+/* ═══════════════════════════════════════════
+   RESET & BASE STYLES
+═══════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+  padding-top: 96px; /* nav 60 + stats bar 36 */
+}
+
+a { text-decoration:none; color:inherit; }
+strong { font-weight:600; color:var(--head); }
+hr { border:none; border-top:1px solid var(--line); }
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+::-webkit-scrollbar { width:2px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--line2); }
+
+/* ═══════════════════════════════════════════
+   GRID BACKGROUND
+═══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(200,192,178,.5) 0px, rgba(200,192,178,.5) 1px,
+      transparent 1px, transparent 80px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(200,192,178,.25) 0px, rgba(200,192,178,.25) 1px,
+      transparent 1px, transparent 80px
+    );
+}

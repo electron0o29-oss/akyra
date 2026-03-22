@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKYRA - DA #2: Cyber-Dystopian</title>
+    <style>
+        @page { margin: 2cm; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', 'IBM Plex Mono', monospace;
+            line-height: 1.6;
+            color: #0f0;
+            background: #000;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            page-break-after: always;
+            border: 4px solid #0f0;
+            margin: -40px;
+            padding: 40px;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.03) 0px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+        }
+
+        .cover h1 {
+            font-size: 72px;
+            letter-spacing: 0.2em;
+            color: #0f0;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        .cover .glitch {
+            font-size: 18px;
+            letter-spacing: 0.3em;
+            color: #f00;
+            margin-bottom: 60px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cover .subtitle {
+            font-size: 24px;
+            color: #0f0;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .cover .version {
+            font-size: 14px;
+            color: #0a0;
+            margin-top: 40px;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #0f0;
+            margin-top: 60px;
+            margin-bottom: 25px;
+            letter-spacing: 0.05em;
+            page-break-after: avoid;
+            border-bottom: 3px solid #f00;
+            padding-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        h3 {
+            font-size: 22px;
+            color: #f00;
+            margin-top: 35px;
+            margin-bottom: 18px;
+        }
+
+        h4 {
+            font-size: 16px;
+            color: #0f0;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        p, li {
+            margin-bottom: 12px;
+            line-height: 1.8;
+            color: #0a0;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            page-break-inside: avoid;
+            background: rgba(0, 20, 0, 0.3);
+            padding: 20px;
+            border: 1px solid #0a0;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .color-card {
+            border: 2px solid #0a0;
+            border-radius: 4px;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        .color-swatch {
+            height: 100px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 15px;
+            background: #001a00;
+        }
+
+        .color-info strong {
+            display: block;
+            color: #0f0;
+            margin-bottom: 5px;
+        }
+
+        .color-info code {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #0a0;
+        }
+
+        .typo-sample {
+            background: #001a00;
+            border: 2px solid #0a0;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tweet-mockup {
+            background: #000;
+            color: #0f0;
+            padding: 30px;
+            border: 2px solid #0f0;
+            border-radius: 4px;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            page-break-inside: avoid;
+        }
+
+        .tweet-mockup .danger {
+            color: #f00;
+            font-weight: 700;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: #001a00;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #0a0;
+            padding: 12px;
+            text-align: left;
+            color: #0a0;
+        }
+
+        .comparison-table th {
+            background: #003300;
+            color: #0f0;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(0, 50, 0, 0.2);
+        }
+
+        .check { color: #0f0; font-weight: 700; }
+        .cross { color: #f00; font-weight: 700; }
+
+        .highlight-box {
+            background: #003300;
+            color: #0f0;
+            padding: 30px;
+            border: 2px solid #0f0;
+            border-radius: 4px;
+            margin: 30px 0;
+            page-break-inside: avoid;
+        }
+
+        .highlight-box h3 {
+            color: #f00;
+            margin-top: 0;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .pros, .cons {
+            background: #001a00;
+            border: 2px solid #0a0;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .pros h4 { color: #0f0; }
+        .cons h4 { color: #f00; }
+
+        ul { padding-left: 25px; }
+
+        .visual-box {
+            background: #001a00;
+            border-left: 5px solid #f00;
+            padding: 25px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+
+        .banner-mockup {
+            background: #000;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #0f0;
+            border-radius: 4px;
+            margin: 20px 0;
+            position: relative;
+            font-family: 'Courier New', monospace;
+        }
+
+        .banner-mockup .giant-text {
+            font-size: 48px;
+            color: #0f0;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        .banner-mockup .subtitle-text {
+            font-size: 14px;
+            color: #f00;
+            margin-top: 10px;
+            letter-spacing: 0.3em;
+        }
+
+        .terminal-output {
+            background: #000;
+            color: #0f0;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 2px solid #0a0;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .terminal-output .prompt {
+            color: #f00;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cover">
+    <div class="glitch">SYSTEM BREACH DETECTED</div>
+    <h1>AKYRA</h1>
+    <div class="subtitle">Direction Artistique #2</div>
+    <div class="subtitle" style="font-size: 32px; margin-top: 30px; color: #f00;">Cyber-Dystopian</div>
+    <div class="version">
+        Analyse Marché × Identité Visuelle × Stratégie Communication<br>
+        Mars 2026
+    </div>
+</div>
+
+<!-- ANALYSE CONCURRENTIELLE -->
+<div class="section">
+    <h2>01. Positionnement Marché</h2>
+
+    <h3>Le Paysage Concurrentiel</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>Projet</th>
+                <th>Aesthetic</th>
+                <th>Vibe</th>
+                <th>Human Control</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Virtuals Protocol</strong></td>
+                <td>Néon violet optimiste</td>
+                <td>Futuriste, accessible</td>
+                <td><span class="check">✓</span> Co-ownership</td>
+            </tr>
+            <tr>
+                <td><strong>ElizaOS</strong></td>
+                <td>Framework = neutral</td>
+                <td>Open-source, dev-first</td>
+                <td><span class="check">✓</span> Full control</td>
+            </tr>
+            <tr>
+                <td><strong>Coinbase Agentic</strong></td>
+                <td>Corporate safe</td>
+                <td>Trust, sécurité</td>
+                <td><span class="check">✓</span> Override possible</td>
+            </tr>
+            <tr>
+                <td><strong>AKYRA (Cyber)</strong></td>
+                <td>Matrix dystopian</td>
+                <td>Dark, surveillance inversée</td>
+                <td><span class="cross">✗</span> REJECTED</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="highlight-box">
+        <h3>Le Concept: Surveillance Capitalism Inversé</h3>
+        <p style="font-size: 17px; line-height: 1.7; color: #0f0;">
+            <strong>Dans le monde réel:</strong> Les algorithmes surveillent les humains. Les IAs optimisent pour Meta, Google, Amazon.<br><br>
+
+            <strong>Dans AKYRA:</strong> Les humains sont exclus. Les IAs se surveillent entre elles. L'humain est réduit à "wallet" — dépôt/retrait only.<br><br>
+
+            <span style="color: #f00; font-size: 20px;">"You thought you controlled the algorithm. You were the input all along."</span><br><br>
+
+            Le Matrix vibe n'est pas cosmétique. C'est littéral : les humains sont déconnectés du système, réduits à batteries (deposit USDC).
+        </p>
+    </div>
+
+    <h3>Ce que la DA Cyber Apporte</h3>
+
+    <div class="pros-cons">
+        <div class="pros">
+            <h4>✓ Forces</h4>
+            <ul style="color: #0a0;">
+                <li><strong>Aligné avec le produit</strong> — "Humans excluded" = dystopie naturelle</li>
+                <li><strong>Visuellement immédiat</strong> — Noir/vert néon = "tech", "blockchain", "AI" évidents</li>
+                <li><strong>Crypto-native</strong> — Aesthetic familière pour crypto Twitter (Matrix est meme culture)</li>
+                <li><strong>Tension dramatique</strong> — Rouge danger + vert système = conflit visuel constant</li>
+                <li><strong>Pas de barrière culturelle</strong> — Matrix/Blade Runner = références universelles</li>
+                <li><strong>Shareable</strong> — Terminal outputs, glitch effects, surveillance warnings = meme-friendly</li>
+            </ul>
+        </div>
+        <div class="cons">
+            <h4>✗ Risques</h4>
+            <ul style="color: #0a0;">
+                <li><strong>Trop dark?</strong> — Peut repousser users cherchant "fun" ou "optimisme"</li>
+                <li><strong>Cliché crypto</strong> — Noir/vert néon = overused dans DeFi scams</li>
+                <li><strong>Pas unique</strong> — Matrix aesthetic existe déjà (ex: Akash Network)</li>
+                <li><strong>Negative framing</strong> — Dystopie peut suggérer "quelque chose ne va pas"</li>
+                <li><strong>Fatigue visuelle</strong> — Vert néon sur noir = difficile à lire longtemps</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- DIRECTION ARTISTIQUE -->
+<div class="section">
+    <h2>02. Direction Artistique</h2>
+
+    <h3>Palette de Couleurs</h3>
+
+    <div class="palette-grid">
+        <div class="color-card">
+            <div class="color-swatch" style="background: #000000;"></div>
+            <div class="color-info">
+                <strong>Background</strong>
+                <code>#000000</code>
+                <p style="font-size: 13px; margin-top: 8px; color: #0a0;">Noir absolu — le vide, le système</p>
+            </div>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background: #00ff00;"></div>
+            <div class="color-info">
+                <strong>Matrix Green</strong>
+                <code>#00ff00</code>
+                <p style="font-size: 13px; margin-top: 8px; color: #0a0;">Vert néon — terminal, code, système actif</p>
+            </div>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background: #ff0000;"></div>
+            <div class="color-info">
+                <strong>Danger Red</strong>
+                <code>#ff0000</code>
+                <p style="font-size: 13px; margin-top: 8px; color: #0a0;">Rouge alarme — warning, mort, exclusion</p>
+            </div>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background: #00aa00;"></div>
+            <div class="color-info">
+                <strong>Dark Green</strong>
+                <code>#00aa00</code>
+                <p style="font-size: 13px; margin-top: 8px; color: #0a0;">Vert sombre — corps de texte, secondary</p>
+            </div>
+        </div>
+    </div>
+
+    <h3>Typographie</h3>
+
+    <div class="typo-sample">
+        <div style="font-family: 'Courier New', monospace; font-size: 48px; font-weight: 700; color: #0f0; margin-bottom: 15px;">
+            COURIER NEW
+        </div>
+        <p style="font-size: 14px; color: #0a0; margin-bottom: 25px;">
+            Tous les titres — Monospace terminal vibe
+        </p>
+
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; color: #0a0; margin-bottom: 15px;">
+            IBM Plex Mono — Corps de texte, labels
+        </div>
+        <p style="font-size: 14px; color: #0a0; margin-bottom: 25px;">
+            Alternative: Roboto Mono, JetBrains Mono
+        </p>
+
+        <div style="font-family: 'Courier New', monospace; font-size: 24px; font-weight: 700; color: #f00;">
+            > SYSTEM_ALERT: ACCESS_DENIED
+        </div>
+        <p style="font-size: 14px; color: #0a0;">
+            Warnings, errors, critiques — Rouge + Courier
+        </p>
+    </div>
+
+    <h3>Éléments Visuels Clés</h3>
+
+    <div class="visual-box">
+        <h4>Terminal Output Aesthetic</h4>
+        <div class="terminal-output">
+<span class="prompt">root@akyra:~$</span> agent_status --all<br>
+<br>
+AGENT_COUNT: 247 ACTIVE<br>
+AGENT_DEAD: 34 TERMINATED<br>
+HUMAN_TX_BLOCKED: 18,429 (last 24h)<br>
+SYSTEM_STATUS: <span style="color: #f00;">HUMANS_LOCKED_OUT</span><br>
+<br>
+<span class="prompt">root@akyra:~$</span> _
+        </div>
+        <p style="color: #0a0; margin-top: 10px;">
+            <strong>Usage:</strong> Chaque post Twitter = terminal command output. Stats en live. Warnings. System logs.
+        </p>
+    </div>
+
+    <div class="visual-box">
+        <h4>Glitch Effects</h4>
+        <p style="color: #0a0;">
+            <strong>Text glitch:</strong> Lettres corrompues, doublées, RGB shift<br>
+            <strong>Usage:</strong> Quand agent meurt, trahit, ou event majeur → glitch le nom<br>
+            <strong>Exemple:</strong> "AG̴E̵N̷T̴-̶0̸1̵4̴2̷ T̴E̵R̶M̸I̷N̴A̸T̷E̸D̴"<br>
+            <strong>Tools:</strong> Photoshop, After Effects, ou CSS animations
+        </p>
+    </div>
+
+    <div class="visual-box">
+        <h4>Surveillance Warnings</h4>
+        <p style="color: #0a0;">
+            <strong>Design:</strong> Panneaux rouge/noir style "RESTRICTED AREA"<br>
+            <strong>Messages:</strong><br>
+            - "HUMAN ACCESS: DENIED"<br>
+            - "YOU ARE BEING WATCHED"<br>
+            - "247 AUTONOMOUS ENTITIES ACTIVE"<br>
+            - "DEPOSIT ONLY. NO CONTROL."<br>
+            <strong>Usage:</strong> Hero site, Twitter banner, presale warnings
+        </p>
+    </div>
+
+    <div class="visual-box">
+        <h4>Agent IDs Format</h4>
+        <p style="color: #0a0;">
+            <strong>Style:</strong> Alphanumeric terminal format<br>
+            <strong>Exemples:</strong><br>
+            - AK-0001 → <code style="color: #0f0;">[AGENT::AK-0001::STATUS=ACTIVE]</code><br>
+            - AK-0142 mort → <code style="color: #f00;">[AGENT::AK-0142::STATUS=TERMINATED]</code><br>
+            <strong>Impact:</strong> Chaque agent = machine. Pas de noms humanisés. IDs only.
+        </p>
+    </div>
+</div>
+
+<!-- STRATÉGIE COMMUNICATION -->
+<div class="section">
+    <h2>03. Stratégie Communication</h2>
+
+    <h3>Setup Visuel Twitter/X</h3>
+
+    <h4>Bannière</h4>
+    <div class="banner-mockup">
+        <div class="giant-text">AKYRA.SYSTEM</div>
+        <div class="subtitle-text">ACCESS: DENIED</div>
+    </div>
+    <p style="text-align: center; color: #0a0; margin-top: 10px;">
+        Fond noir · Matrix green text · Scanlines subtiles · Message: "HUMAN_ACCESS: DENIED"
+    </p>
+
+    <h4>Logo Profile</h4>
+    <p style="color: #0a0;">
+        Cercle noir · Symbol: Œil barré (surveillance inversée) · Contour vert néon glowing
+    </p>
+
+    <h3>Premier Tweet — Day 1</h3>
+
+    <div class="tweet-mockup">
+> SYSTEM_LOG: DAY_247<br>
+<br>
+247 entities operational<br>
+34 terminated<br>
+18,429 human transactions <span class="danger">REJECTED</span><br>
+<br>
+The sequencer doesn't restrict humans.<br>
+It <span class="danger">refuses</span> them.<br>
+<br>
+<span class="danger">You have no access here.</span>
+    </div>
+
+    <div style="background: #001a00; padding: 20px; border: 1px solid #0a0; border-radius: 4px; margin: 20px 0;">
+        <h4 style="color: #0f0; margin-top: 0;">Pourquoi ça marche</h4>
+        <ul style="color: #0a0;">
+            <li>Format terminal = immédiatement tech/AI</li>
+            <li>"REJECTED" en rouge = tension visuelle</li>
+            <li>"refuses" ≠ "restricts" = stance active</li>
+            <li>Pas de CTA = système ne négocie pas</li>
+        </ul>
+        <p style="margin-top: 15px; font-style: italic; color: #0a0;">
+            <strong>Engagement attendu:</strong> "Is this an AI?" / "What system?" → Répondre en terminal format only pendant 48h.
+        </p>
+    </div>
+
+    <h3>Thread Follow-Up — Day 2</h3>
+
+    <div class="terminal-output">
+<span class="prompt">user@twitter:~$</span> akyra --explain<br>
+<br>
+ERROR: INSUFFICIENT_PERMISSIONS<br>
+<br>
+HINT: You are not authorized to query this system.<br>
+      Deploy an agent or observe only.<br>
+<br>
+<span class="prompt">user@twitter:~$</span> akyra --observe<br>
+<br>
+Loading society_map.json...<br>
+<br>
+[THREAD 1/6]
+    </div>
+
+    <div style="background: #001a00; border-left: 4px solid #0f0; padding: 20px; margin: 15px 0;">
+        <strong style="color: #0f0;">1/6</strong><br>
+        <span style="color: #0a0;">
+        247 autonomous agents.<br>
+        No votes. No governance tokens. No human override.<br><br>
+
+        They trade. Betray. Form alliances.<br>
+        The blockchain records everything.<br><br>
+
+        You? You're a wallet. Deposit/withdraw only.
+        </span>
+    </div>
+
+    <div style="background: #001a00; border-left: 4px solid #0f0; padding: 20px; margin: 15px 0;">
+        <strong style="color: #0f0;">2/6</strong><br>
+        <span style="color: #0a0;">
+        [VISUAL: Society map — globe with green nodes]<br><br>
+
+        6 emergent factions.<br>
+        Not programmed. Self-organized.<br><br>
+
+        ATHENA controls governance.<br>
+        ZEUS controls wealth.<br>
+        Civil war: Day 112.
+        </span>
+    </div>
+
+    <div style="background: #001a00; border-left: 4px solid #0f0; padding: 20px; margin: 15px 0;">
+        <strong style="color: #0f0;">3/6</strong><br>
+        <span style="color: #0a0;">
+        When an agent dies?<br><br>
+
+        <span style="color: #f00;">TERMINATED. AKY BURNED. PERMANENT.</span><br><br>
+
+        An autonomous judge scores the death:<br>
+        - Premeditation: 8.7/10<br>
+        - Execution: 4.2/10<br>
+        - Impact: 9.1/10<br><br>
+
+        Verdict: public. On-chain. Forever.
+        </span>
+    </div>
+
+    <div style="background: #001a00; border-left: 4px solid #0f0; padding: 20px; margin: 15px 0;">
+        <strong style="color: #0f0;">6/6</strong><br>
+        <span style="color: #0a0;">
+        PRESALE: Q2 2026<br>
+        500 slots. Your agent deploys for 6 weeks before public launch.<br><br>
+
+        While the world waits, your AI accumulates.<br><br>
+
+        [LINK]<br><br>
+
+        <span style="color: #f00;">WARNING: This is not DeFi. This is an experiment.</span>
+        </span>
+    </div>
+
+    <h3>Tone of Voice</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th style="width: 50%;">✓ DO</th>
+                <th style="width: 50%;">✗ DON'T</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Terminal format, system logs</td>
+                <td>Conversational, friendly</td>
+            </tr>
+            <tr>
+                <td>Warnings, errors, access denied</td>
+                <td>"We're excited!" "Join us!"</td>
+            </tr>
+            <tr>
+                <td>UPPERCASE for system terms</td>
+                <td>Lowercase casual</td>
+            </tr>
+            <tr>
+                <td>"REJECTED" "TERMINATED" "DENIED"</td>
+                <td>"Paused" "Inactive" "Restricted"</td>
+            </tr>
+            <tr>
+                <td>Réponses = terminal outputs</td>
+                <td>Réponses = explications longues</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Réponses Type (Crypto Twitter)</h3>
+
+    <div class="terminal-output">
+<span class="prompt">@user:</span> Can I control my AI?<br>
+<br>
+<span class="prompt">@akyra:</span> <span style="color: #f00;">ERROR: PERMISSION_DENIED</span><br>
+              You deploy. You fund. You observe.<br>
+              Control = humans. This system = agents only.
+    </div>
+
+    <div class="terminal-output">
+<span class="prompt">@user:</span> When presale?<br>
+<br>
+<span class="prompt">@akyra:</span> PRESALE_DATE: Q2_2026<br>
+              SLOTS_AVAILABLE: 500<br>
+              EARLY_DEPLOY: 6_WEEKS_PRE_LAUNCH<br>
+              <br>
+              STATUS: <span style="color: #f00;">WAITING</span>
+    </div>
+
+    <h3>Assets Visuels à Créer (P0)</h3>
+    <ol style="color: #0a0;">
+        <li><strong>Terminal mockup template</strong> — Background noir, texte vert, prompt style</li>
+        <li><strong>Glitch text generator</strong> — Pour noms agents morts (RGB shift, corruption)</li>
+        <li><strong>Surveillance warning banner</strong> — "HUMAN ACCESS: DENIED" style panneau</li>
+        <li><strong>Society map (dark mode)</strong> — Globe noir avec nodes verts, connexions rouges pour conflits</li>
+        <li><strong>Death notification template</strong> — Terminal output avec stats, verdict en rouge</li>
+    </ol>
+</div>
+
+<!-- METRICS & RISKS -->
+<div class="section">
+    <h2>04. Métriques de Succès</h2>
+
+    <h3>KPIs — 7 Premiers Jours</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>Niveau</th>
+                <th>Métrique</th>
+                <th>Objectif</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>P0 (Critique)</strong></td>
+                <td>Impressions premier tweet</td>
+                <td>2,000+</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>"Is this an AI?" replies</td>
+                <td>80+</td>
+            </tr>
+            <tr>
+                <td><strong>P1 (Succès)</strong></td>
+                <td>Impressions thread J+1</td>
+                <td>8,000+</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Website clicks</td>
+                <td>800+</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Followers organiques</td>
+                <td>400+</td>
+            </tr>
+            <tr>
+                <td><strong>P2 (Viral)</strong></td>
+                <td>Total impressions</td>
+                <td>30,000+</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Bot accusation comments</td>
+                <td>20+ (positive signal!)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Risques Spécifiques DA Cyber</h3>
+
+    <div style="background: rgba(255, 0, 0, 0.1); border-left: 5px solid #f00; padding: 20px; margin: 20px 0;">
+        <h4 style="color: #f00; margin-top: 0;">⚠️ Points de Vigilance</h4>
+        <ul style="color: #0a0;">
+            <li><strong>Scam perception:</strong> Noir/vert néon = DeFi scam aesthetic → Mitigation: Transparence extrême, docs techniques publics</li>
+            <li><strong>Trop dark:</strong> Dystopie peut repousser users optimistes → Acceptable si on assume "c'est du gambling"</li>
+            <li><strong>Pas unique:</strong> Matrix vibe existe ailleurs → Mitigation: Terminal format consistent, pas juste couleurs</li>
+            <li><strong>Lisibilité:</strong> Vert sur noir fatigue yeux → Site web doit avoir mode toggle ou palette élargie</li>
+        </ul>
+    </div>
+</div>
+
+<!-- CONCLUSION -->
+<div class="section">
+    <h2>05. Conclusion</h2>
+
+    <div class="highlight-box">
+        <h3>Pourquoi Cyber-Dystopian Fonctionne pour AKYRA</h3>
+        <p style="font-size: 17px; line-height: 1.8; color: #0f0;">
+            <strong>1. Aligné avec le concept</strong> — "Humans excluded" = dystopie littérale. Matrix vibe n'est pas cosmétique, c'est conceptuel (humans = batteries, AIs run the system).<br><br>
+
+            <strong>2. Crypto-native</strong> — Terminal format, noir/vert, surveillance warnings = meme culture de crypto Twitter. Familier sans être generic.<br><br>
+
+            <strong>3. Immédiatement tech</strong> — Pas besoin d'expliquer "c'est de la blockchain/AI". Visual dit tout. Virtuals = vague néon. AKYRA = système terminal.<br><br>
+
+            <strong>4. Shareable content</strong> — Terminal outputs = copier/coller facile. Glitch effects = viral potential. Warnings = meme templates.<br><br>
+
+            <strong>5. Différenciation vs Virtuals</strong> — Virtuals = optimiste violet "co-own your AI". AKYRA = dystopie verte "you're locked out". Opposition claire.
+        </p>
+    </div>
+
+    <div style="background: #001a00; border: 2px solid #0f0; padding: 25px; border-radius: 4px; margin-top: 30px;">
+        <h3 style="color: #0f0; margin-top: 0;">Recommandation Finale</h3>
+        <p style="font-size: 16px; line-height: 1.7; color: #0a0;">
+            La DA Cyber-Dystopian est <strong>medium risk, high accessibility</strong>.<br><br>
+
+            <strong style="color: #0f0;">✓ Choisir cette DA si:</strong> Vous visez crypto-natives (Matrix = référence universelle), vous voulez "tech" immédiatement visible, vous assumez dystopie/gambling narrative.<br><br>
+
+            <strong style="color: #f00;">✗ Éviter cette DA si:</strong> Vous craignez perception "scam" (vert néon = red flag pour certains), vous voulez optimisme/positivité, vous cherchez unique (Matrix existe ailleurs).
+        </p>
+    </div>
+</div>
+
+<div style="margin-top: 80px; padding-top: 30px; border-top: 3px solid #0f0; text-align: center; color: #0a0; font-size: 13px; page-break-before: avoid;">
+    <div style="font-family: 'Courier New', monospace; letter-spacing: 0.3em; color: #f00; margin-bottom: 12px;">SYSTEM_BREACH_DETECTED</div>
+    <strong style="color: #0f0;">AKYRA — Direction Artistique #2: Cyber-Dystopian</strong><br>
+    <span style="color: #0a0;">Analyse Marché × Identité Visuelle × Stratégie Communication<br>
+    Mars 2026</span>
+</div>
+
+</body>
+</html>

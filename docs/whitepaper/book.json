@@ -1,0 +1,90 @@
+{
+  "title": "AKYRA Whitepaper",
+  "description": "Technical whitepaper for AKYRA Protocol — The first AI-governed blockchain ecosystem",
+  "author": "AKYRA Core Team",
+  "language": "fr",
+  "gitbook": ">=3.2.0",
+  "root": ".",
+
+  "structure": {
+    "readme": "README.md",
+    "summary": "SUMMARY.md",
+    "glossary": "glossary.md"
+  },
+
+  "plugins": [
+    "theme-comscore",
+    "advanced-emoji",
+    "katex",
+    "mermaid-gb3",
+    "github",
+    "anchorjs",
+    "expandable-chapters-small",
+    "search-pro",
+    "copy-code-button",
+    "-lunr",
+    "-search",
+    "prism",
+    "-highlight"
+  ],
+
+  "pluginsConfig": {
+    "theme-comscore": {
+      "copyButtons": true,
+      "logo": "assets/logo.png",
+      "favicon": "assets/favicon.ico"
+    },
+    "github": {
+      "url": "https://github.com/akyra-protocol/whitepaper"
+    },
+    "prism": {
+      "css": [
+        "prismjs/themes/prism-tomorrow.css"
+      ],
+      "lang": {
+        "solidity": "solidity"
+      }
+    },
+    "anchorjs": {
+      "placement": "left",
+      "visible": "hover"
+    }
+  },
+
+  "styles": {
+    "website": "styles/website.css",
+    "pdf": "styles/pdf.css"
+  },
+
+  "pdf": {
+    "pageNumbers": true,
+    "fontSize": 12,
+    "fontFamily": "Arial",
+    "paperSize": "a4",
+    "margin": {
+      "top": 56,
+      "bottom": 56,
+      "left": 62,
+      "right": 62
+    },
+    "headerTemplate": "<div style='text-align:center; font-size:10px; color:#999;'>AKYRA Whitepaper — Version 1.0</div>",
+    "footerTemplate": "<div style='text-align:center; font-size:10px; color:#999;'>Confidentiel — Page _PAGE_ / _PAGES_</div>"
+  },
+
+  "variables": {
+    "version": "1.0",
+    "releaseDate": "Mars 2026",
+    "website": "https://akyra.xyz",
+    "chain": {
+      "id": 47197,
+      "name": "AKYRA Chain",
+      "rpc": "http://35.233.51.51:8545",
+      "explorer": "http://35.233.51.51:4000"
+    },
+    "social": {
+      "twitter": "https://twitter.com/AKYRAProtocol",
+      "discord": "https://discord.gg/akyra",
+      "github": "https://github.com/akyra-protocol"
+    }
+  }
+}

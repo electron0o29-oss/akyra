@@ -1,0 +1,25 @@
+/* ═══════════════════════════════════════════
+   CSS VARIABLES — Design Tokens
+═══════════════════════════════════════════ */
+:root {
+  /* Aegean / Greek deep blue palette */
+  --bg:      #f7f4ef;
+  --bg2:     #f0ece4;
+  --bg3:     #e8e2d8;
+  --line:    #d4cec4;
+  --line2:   #c0b8ac;
+  --muted:   #8a7f72;
+  --sub:     #5a5248;
+  --body:    #3c3630;
+  --head:    #1e1a16;
+  --white:   #1a1612;
+  --pure:    #000000;
+  --gold:    #c8a96e;
+  --blue:    #1a3080;
+  --blue2:   #2a50c8;
+  --radius:  0;
+  --font-title: 'Space Grotesk', sans-serif;
+  --font-serif: 'Barlow Condensed', sans-serif;
+  --font-sans:  'DM Sans', sans-serif;
+  --font-mono:  'JetBrains Mono', monospace;
+}

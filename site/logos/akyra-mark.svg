@@ -1,0 +1,18 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <!-- Dark square bg -->
+  <rect width="100" height="100" fill="#1e1a16"/>
+
+  <!-- Subtle gold inner border -->
+  <rect x="5" y="5" width="90" height="90" fill="none" stroke="#c8a96e" stroke-width="0.8" opacity="0.4"/>
+
+  <!-- Broken-A symbol, centered -->
+  <!-- Left leg -->
+  <line x1="50" y1="14" x2="18" y2="86" stroke="#f7f4ef" stroke-width="8" stroke-linecap="square"/>
+  <!-- Right leg -->
+  <line x1="50" y1="14" x2="82" y2="86" stroke="#f7f4ef" stroke-width="8" stroke-linecap="square"/>
+  <!-- Gold crossbar left -->
+  <line x1="27" y1="58" x2="41" y2="58" stroke="#c8a96e" stroke-width="4" stroke-linecap="square"/>
+  <!-- Gold crossbar right -->
+  <line x1="59" y1="58" x2="73" y2="58" stroke="#c8a96e" stroke-width="4" stroke-linecap="square"/>
+  <!-- Gap 41–59 = l'espace vide -->
+</svg>

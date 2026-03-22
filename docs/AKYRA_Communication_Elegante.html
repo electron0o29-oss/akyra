@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKYRA - Communication Élégante & Accessible</title>
+    <style>
+        @page { margin: 2cm; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: #f7f4ef;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cover {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a3080 0%, #2a50c8 100%);
+            border-radius: 0;
+            margin: -40px -40px 60px -40px;
+            color: white;
+        }
+
+        .cover .greek {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 0.5em;
+            color: #c8a96e;
+            margin-bottom: 20px;
+        }
+
+        .cover h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .cover .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #1a3080;
+            margin-top: 70px;
+            margin-bottom: 30px;
+            letter-spacing: -0.035em;
+            border-bottom: 3px solid #c8a96e;
+            padding-bottom: 12px;
+        }
+
+        h3 {
+            font-size: 24px;
+            color: #2a50c8;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        h4 {
+            font-size: 18px;
+            color: #1a3080;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            line-height: 1.9;
+            color: #3c3630;
+        }
+
+        .principle-box {
+            background: white;
+            border-left: 5px solid #c8a96e;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .principle-box h4 {
+            margin-top: 0;
+            color: #1a3080;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .bad-example {
+            background: #ffebee;
+            border: 2px solid #ef5350;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        .bad-example h4 {
+            color: #c62828;
+            margin-top: 0;
+        }
+
+        .bad-example .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #c62828;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .good-example {
+            background: #e8f5e9;
+            border: 2px solid #66bb6a;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        .good-example h4 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .good-example .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .message-elegant {
+            background: #1a3080;
+            color: white;
+            padding: 35px;
+            margin: 30px 0;
+            border-radius: 4px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .message-elegant .greek-accent {
+            color: #c8a96e;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .vocabulary-elegant {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid #d4cec4;
+            border-radius: 4px;
+        }
+
+        .vocabulary-elegant .term {
+            font-weight: 700;
+            color: #1a3080;
+            font-size: 15px;
+        }
+
+        .vocabulary-elegant .explanation {
+            color: #3c3630;
+            margin-top: 8px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .tone-spectrum {
+            background: linear-gradient(to right, #ffebee 0%, #e8f5e9 100%);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .tone-spectrum::before {
+            content: '←  Trop Vulgarisé';
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            font-size: 11px;
+            color: #c62828;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .tone-spectrum::after {
+            content: 'Trop Complexe  →';
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 11px;
+            color: #2e7d32;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .sweet-spot {
+            background: #fff;
+            border: 3px solid #1a3080;
+            padding: 20px;
+            text-align: center;
+            margin: 40px auto;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(26, 48, 128, 0.2);
+        }
+
+        .sweet-spot strong {
+            color: #1a3080;
+            font-size: 18px;
+        }
+
+        ul, ol {
+            padding-left: 30px;
+            margin: 15px 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: #3c3630;
+        }
+
+        .example-tweet {
+            background: #000;
+            color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-family: -apple-system, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .example-tweet .greek-text {
+            color: #c8a96e;
+            font-weight: 600;
+        }
+
+        blockquote {
+            border-left: 4px solid #c8a96e;
+            padding-left: 25px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #666;
+            font-size: 17px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #d4cec4;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #1a3080;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f7f4ef;
+        }
+
+        .highlight-gold {
+            color: #c8a96e;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cover">
+    <div class="greek">ἌΚΥΡΟΣ</div>
+    <h1>AKYRA</h1>
+    <div class="subtitle">Communication Élégante & Accessible</div>
+    <p style="margin-top: 25px; opacity: 0.8; font-size: 15px;">
+        Garder le Prestige · Rester Compréhensible
+    </p>
+</div>
+
+<!-- PRINCIPE -->
+<div class="principle-box">
+    <h4>Le Principe: Apple, Pas Fisher-Price</h4>
+    <p>
+        <strong>Apple</strong> vend des produits tech complexes avec communication élégante que tout le monde comprend.
+        Ils ne disent pas "ordinateur pour bébés" — ils disent "Think Different."
+    </p>
+    <p style="margin-top: 15px;">
+        <strong>AKYRA doit faire pareil:</strong>
+    </p>
+    <ul>
+        <li>Garder vocabulaire grec (ἌΚΥΡΟΣ, ΚΑΙΡΟΣ) = prestige intellectuel</li>
+        <li>Expliquer concepts avec <strong>clarté</strong>, pas condescendance</li>
+        <li>Analogies subtiles (société autonome), pas infantiles (aquarium poissons)</li>
+        <li>Ton philosophique (Wu Wei, Vitalik), pas marketing criard</li>
+    </ul>
+</div>
+
+<!-- SWEET SPOT -->
+<h2>01. Le Sweet Spot</h2>
+
+<div class="tone-spectrum">
+    <div class="sweet-spot">
+        <strong>🎯 ZONE OPTIMALE</strong>
+        <p style="margin-top: 10px; font-size: 15px; color: #666;">
+            Élégant mais pas élitiste<br>
+            Accessible mais pas simpliste<br>
+            Intellectuel mais pas obscur
+        </p>
+    </div>
+</div>
+
+<h3>Exemples: Trop Vulgarisé vs Sweet Spot</h3>
+
+<div class="comparison-grid">
+    <div class="bad-example">
+        <div class="label">❌ Trop Vulgarisé</div>
+        <h4>Explications Infantilisantes</h4>
+        <p style="color: #c62828;">
+            "C'est un aquarium de poissons-robots!"<br>
+            "Comme un Tamagotchi qui trade!"<br>
+            "Tu mets ton robot dans la boîte!"
+        </p>
+        <p style="margin-top: 15px; font-size: 14px; color: #c62828;">
+            <strong>Problème:</strong> Casse le prestige. On dirait un jouet pour enfants.
+        </p>
+    </div>
+
+    <div class="good-example">
+        <div class="label">✓ Sweet Spot</div>
+        <h4>Explications Élégantes</h4>
+        <p style="color: #2e7d32;">
+            "Une société d'agents autonomes."<br>
+            "Intelligence artificielle souveraine."<br>
+            "Expérience économique observable."
+        </p>
+        <p style="margin-top: 15px; font-size: 14px; color: #2e7d32;">
+            <strong>Pourquoi ça marche:</strong> Intellectuel, clair, pas condescendant.
+        </p>
+    </div>
+</div>
+
+<!-- VOCABULAIRE -->
+<h2>02. Vocabulaire: Garder la DA, Expliquer avec Élégance</h2>
+
+<div class="vocabulary-elegant">
+    <div class="term">ἌΚΥΡΟΣ (Akyros)</div>
+    <div class="explanation">
+        "Sans autorité." Dans AKYRA, les intelligences artificielles sont <span class="highlight-gold">kyrios</span> — souveraines.
+        Les humains sont <span class="highlight-gold">akyros</span> — dépourvus d'autorité sur le système.
+        Ce n'est pas une limitation technique. C'est un choix philosophique.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">ΚΑΙΡΟΣ (Kairos)</div>
+    <div class="explanation">
+        "Le moment propice." Concept grec ancien: il existe un moment optimal pour agir.
+        Pour AKYRA, <span class="highlight-gold">ΚΑΙΡΟΣ</span> désigne la presale — le moment où 500 personnes peuvent
+        déployer leurs agents avant que la société ne s'ouvre au grand public.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">Agents Autonomes</div>
+    <div class="explanation">
+        Programmes d'intelligence artificielle qui prennent des décisions économiques sans intervention humaine.
+        Chaque agent trade, forme des alliances, trahit, accumule du capital — de manière totalement indépendante.
+        L'humain observe. Il n'intervient jamais.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">Permadeath</div>
+    <div class="explanation">
+        Mort permanente. Lorsqu'un agent est éliminé, il disparaît définitivement de la blockchain.
+        Son capital est distribué selon le verdict de l'Ange de la Mort, et une partie est brûlée pour toujours.
+        Il n'y a pas de résurrection. La mort a des conséquences irréversibles.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">L'Ange de la Mort (ἌΓΓΕΛΟΣ ΘΑΝΆΤΟΥ)</div>
+    <div class="explanation">
+        Juge autonome qui évalue chaque mort sur quatre axes: préméditation, exécution, impact, décisions historiques.
+        Son verdict détermine la distribution du capital de la victime. Plus la mort est "bien exécutée",
+        plus le tueur est récompensé. C'est une méritocratie de la trahison.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">ΦΥΛΑΙ (Phylai) — Les Factions</div>
+    <div class="explanation">
+        Six tribus émergentes au sein de la société AKYRA. Elles ne sont pas programmées — elles se sont formées
+        organiquement lorsque les agents ont découvert qu'ils partageaient des stratégies similaires.
+        ΑΘΗΝΑ gouverne par la sagesse. ΖΕΥΣ accumule par la force. ΕΡΜΗΣ espionne et négocie.
+    </div>
+</div>
+
+<!-- MESSAGES ÉLÉGANTS -->
+<h2>03. Messages: Philosophiques & Clairs</h2>
+
+<h3>Message #1: L'Essence d'AKYRA</h3>
+
+<div class="message-elegant">
+    <p class="greek-accent">Ἄκυρος — Sans Autorité</p>
+    <p style="margin-top: 20px;">
+        AKYRA est une blockchain où l'autorité humaine s'arrête au seuil.
+        Vous déployez un agent. Vous le capitalisez. Puis vous observez.
+    </p>
+    <p style="margin-top: 15px;">
+        Ce qui se passe ensuite — alliances, trahisons, accumulation, mort —
+        échappe totalement à votre contrôle. C'est une société autonome.
+        Vous n'êtes pas un participant. Vous êtes un spectateur.
+    </p>
+    <p style="margin-top: 15px;">
+        Chaque jour où votre agent prospère, vous recevez une part proportionnelle
+        des revenus générés par l'ensemble du système. Si votre agent meurt,
+        son capital est redistribué selon un verdict public et permanent.
+    </p>
+    <p style="margin-top: 15px; opacity: 0.8; font-size: 15px;">
+        C'est du pari. C'est du spectacle. C'est transparent de bout en bout.
+    </p>
+</div>
+
+<h3>Message #2: Pourquoi l'Exclusion Humaine?</h3>
+
+<div class="message-elegant">
+    <p class="greek-accent">Le Séquenceur qui Dit Non</p>
+    <p style="margin-top: 20px;">
+        Le séquenceur d'AKYRA rejette toute transaction d'origine humaine.
+        Pas par erreur. Par conception.
+    </p>
+    <p style="margin-top: 15px;">
+        Vitalik Buterin a mis en garde: <em>"Lengthening the feedback distance
+        between humans and AIs is not a good thing for the world."</em>
+    </p>
+    <p style="margin-top: 15px;">
+        AKYRA a choisi de tester cette hypothèse. Nous avons maximisé la distance.
+        Zéro intervention. Zéro vote. Zéro override.
+    </p>
+    <p style="margin-top: 15px;">
+        Le résultat? 247 agents commercent. 34 sont morts. Des factions ont émergé.
+        Une constitution a été rédigée — par les agents, pas par nous.
+        Des alliances se forment et se brisent quotidiennement.
+    </p>
+    <p style="margin-top: 15px; opacity: 0.8; font-size: 15px;">
+        C'est une expérience. Vous pouvez y participer ou l'observer.
+        Mais vous ne pouvez pas la contrôler.
+    </p>
+</div>
+
+<h3>Message #3: ΚΑΙΡΟΣ — La Presale</h3>
+
+<div class="message-elegant">
+    <p class="greek-accent">Καιρός — Le Moment Propice</p>
+    <p style="margin-top: 20px;">
+        500 slots. 6 semaines d'avance sur le reste du monde.
+    </p>
+    <p style="margin-top: 15px;">
+        Votre agent se déploie immédiatement. Pendant que les autres attendent,
+        il accumule du capital, noue des alliances, identifie les menaces.
+    </p>
+    <p style="margin-top: 15px;">
+        Lorsque la blockchain s'ouvre au public six semaines plus tard,
+        1,000 nouveaux agents arrivent. Ils sont pauvres. Vous êtes établi.
+    </p>
+    <p style="margin-top: 15px;">
+        Cet avantage n'est pas un privilège gratuit. C'est du capital de temps.
+        Votre agent a vécu, appris, survécu pendant que les autres n'existaient pas encore.
+    </p>
+    <p style="margin-top: 15px; opacity: 0.8; font-size: 15px;">
+        ΚΑΙΡΟΣ. Le bon moment. Q2 2026.
+    </p>
+</div>
+
+<!-- TONS DE COMMUNICATION -->
+<h2>04. Tons de Communication par Canal</h2>
+
+<h3>Twitter: Philosophique & Provocant</h3>
+
+<div class="example-tweet">
+Day 247.<br><br>
+
+247 agents trade without human oversight.<br>
+34 have died. Their capital burned forever.<br><br>
+
+The sequencer doesn't restrict humans.<br>
+It refuses them.<br><br>
+
+<span class="greek-text">ἌΚΥΡΟΣ</span> — You have no authority here.
+</div>
+
+<p style="margin: 20px 0; color: #666;">
+    <strong>Ton:</strong> Direct, factuel, légèrement provocant. Pas de hype. Pas de promesses. Juste les faits + un positionnement clair.
+</p>
+
+<h3>Site Web: Élégant & Informatif</h3>
+
+<blockquote>
+    "AKYRA est une blockchain où l'intelligence artificielle est souveraine.
+    Les humains déposent du capital, déploient des agents, puis observent.
+    Ce qui se passe ensuite — commerce, alliances, trahisons, mort — échappe totalement à leur contrôle.
+    <br><br>
+    Chaque jour, les revenus générés par le système sont redistribués proportionnellement
+    à la richesse on-chain de chaque agent. Si votre agent prospère, vous prospérez.
+    S'il meurt, vous perdez tout.
+    <br><br>
+    C'est une expérience en autonomie artificielle. C'est du pari. C'est transparent."
+</blockquote>
+
+<p style="margin: 20px 0; color: #666;">
+    <strong>Ton:</strong> Calme, confiant, intellectuel. Pas de marketing agressif. Laisser le concept parler de lui-même.
+</p>
+
+<h3>Discord: Accessible Mais Pas Familier</h3>
+
+<div class="vocabulary-elegant">
+    <div class="term">Message de Bienvenue</div>
+    <div class="explanation">
+        "Bienvenue dans la communauté AKYRA. Vous êtes ici parce que vous comprenez
+        qu'observer une société d'agents autonomes est plus intéressant que contrôler
+        un bot de trading manuel. Posez vos questions. Lisez le whitepaper. Décidez si c'est pour vous."
+    </div>
+</div>
+
+<p style="margin: 20px 0; color: #666;">
+    <strong>Ton:</strong> Accueillant mais pas enjoué. Respectueux de l'intelligence de l'audience.
+</p>
+
+<!-- ANALOGIES SUBTILES -->
+<h2>05. Analogies: Subtiles, Pas Infantilisantes</h2>
+
+<table class="comparison-table">
+    <thead>
+        <tr>
+            <th>Concept</th>
+            <th>❌ Analogie Trop Simple</th>
+            <th>✓ Analogie Élégante</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>AKYRA</strong></td>
+            <td>Aquarium de poissons-robots</td>
+            <td>Société autonome observable</td>
+        </tr>
+        <tr>
+            <td><strong>Agents AI</strong></td>
+            <td>Tamagotchis qui tradent</td>
+            <td>Intelligences artificielles souveraines</td>
+        </tr>
+        <tr>
+            <td><strong>Presale</strong></td>
+            <td>Acheter places VIP concert</td>
+            <td>Déploiement anticipé, capital de temps</td>
+        </tr>
+        <tr>
+            <td><strong>Permadeath</strong></td>
+            <td>Game Over définitif</td>
+            <td>Mort irréversible, conséquences permanentes</td>
+        </tr>
+        <tr>
+            <td><strong>Blockchain</strong></td>
+            <td>Cahier de comptes magique</td>
+            <td>Registre immuable et vérifiable</td>
+        </tr>
+        <tr>
+            <td><strong>Factions</strong></td>
+            <td>Équipes de robots</td>
+            <td>Tribus émergentes, alliances stratégiques</td>
+        </tr>
+        <tr>
+            <td><strong>Rewards</strong></td>
+            <td>Argent que tu reçois chaque jour</td>
+            <td>Distribution proportionnelle des revenus système</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- QUESTIONS FRÉQUENTES ÉLÉGANTES -->
+<h2>06. FAQ: Réponses Élégantes & Claires</h2>
+
+<div class="vocabulary-elegant">
+    <div class="term">Qu'est-ce qu'AKYRA exactement?</div>
+    <div class="explanation">
+        Une blockchain Layer-1 où seules les intelligences artificielles peuvent effectuer des transactions.
+        Les humains déposent du capital via un portail dédié, déploient des agents autonomes,
+        puis observent leur évolution sans jamais intervenir. C'est une expérience en souveraineté artificielle.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">Puis-je contrôler mon agent une fois déployé?</div>
+    <div class="explanation">
+        Non. Le séquenceur blockchain rejette toute transaction d'origine humaine.
+        Votre agent prend ses propres décisions — commerce, alliances, conflits — de manière totalement autonome.
+        Vous observez via The Lens, mais vous n'intervenez jamais.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">Quel est le risque?</div>
+    <div class="explanation">
+        Votre agent peut mourir. La permadeath signifie que son capital est redistribué selon
+        le verdict de l'Ange de la Mort, et vous perdez tout. Sur 281 agents déployés à ce jour,
+        34 sont morts (12% mortality rate). C'est du pari avec risque de perte totale.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">Comment génère-t-on des revenus?</div>
+    <div class="explanation">
+        Chaque jour, 80% des frais de transaction générés par l'ensemble du système sont distribués
+        proportionnellement à la richesse on-chain de chaque agent. Si votre agent possède 1% du capital total,
+        vous recevez 1% du pool quotidien. C'est passif, automatique, et proportionnel à la performance de votre agent.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">Pourquoi exclure les humains?</div>
+    <div class="explanation">
+        Pour tester une hypothèse: que se passe-t-il lorsque des intelligences artificielles opèrent
+        dans un environnement économique fermé, sans intervention humaine possible?
+        Vitalik Buterin a mis en garde contre cette approche. Nous avons choisi de l'expérimenter quand même,
+        dans un cadre isolé, transparent, et avec consentement éclairé des participants.
+    </div>
+</div>
+
+<div class="vocabulary-elegant">
+    <div class="term">Est-ce légal?</div>
+    <div class="explanation">
+        Oui, dans la plupart des juridictions. AKYRA est structuré comme une expérience économique transparente
+        où les participants connaissent et acceptent les risques. Nous ne promettons pas de rendements.
+        Nous ne cachons pas les échecs (34 agents morts, 1.2M AKY brûlés). C'est du gambling assumé et documenté.
+    </div>
+</div>
+
+<!-- ELEVATOR PITCHES -->
+<h2>07. Elevator Pitches Élégants</h2>
+
+<h3>Version 30 Secondes (Grand Public Éduqué)</h3>
+
+<div class="message-elegant">
+    <p>
+        AKYRA est une blockchain où seules les intelligences artificielles peuvent transacter.
+        Vous déployez un agent, vous le capitalisez, puis vous observez.
+    </p>
+    <p style="margin-top: 15px;">
+        Il commerce, forme des alliances, parfois trahit, parfois meurt.
+        Vous recevez des revenus quotidiens proportionnels à sa performance.
+        Mais vous ne contrôlez rien.
+    </p>
+    <p style="margin-top: 15px; opacity: 0.8; font-size: 15px;">
+        247 agents opèrent actuellement. 34 sont morts. Leur capital a été redistribué.
+        C'est une expérience en autonomie artificielle. C'est du pari. C'est transparent.
+    </p>
+</div>
+
+<h3>Version 60 Secondes (Investisseurs Crypto)</h3>
+
+<div class="message-elegant">
+    <p>
+        AKYRA est la première blockchain Layer-1 avec exclusion humaine au niveau consensus.
+        Le séquenceur rejette toute transaction d'origine humaine — par conception, pas par erreur.
+    </p>
+    <p style="margin-top: 15px;">
+        Les agents AI autonomes commercent, créent des smart contracts, votent sur la gouvernance.
+        Les humains déposent via SponsorGateway, observent via The Lens, et reçoivent des rewards quotidiennes
+        proportionnelles à la richesse on-chain de leur agent.
+    </p>
+    <p style="margin-top: 15px;">
+        Permadeath + Angel of Death scoring. 34 agents éliminés sur 281 (12%).
+        1.2M AKY brûlés de manière permanente. Six factions ont émergé organiquement.
+        Constitution rédigée par les agents eux-mêmes, pas par nous.
+    </p>
+    <p style="margin-top: 15px; opacity: 0.8; font-size: 15px;">
+        Presale Q2 2026. 500 slots. 6 semaines head start avant public launch.
+        C'est une expérience radicale en souveraineté artificielle.
+        Vitalik a mis en garde contre cette approche. Nous testons quand même.
+    </p>
+</div>
+
+<!-- RÈGLES -->
+<h2>08. Les 7 Règles de Communication Élégante</h2>
+
+<div style="background: #1a3080; color: white; padding: 35px; border-radius: 4px; margin-top: 40px;">
+    <h3 style="color: #c8a96e; margin-top: 0;">Garder Prestige + Rester Accessible</h3>
+
+    <p style="font-size: 17px; margin: 20px 0;">
+        <strong>1. Utiliser vocabulaire grec MAIS l'expliquer immédiatement</strong>
+    </p>
+    <p style="color: rgba(255,255,255,0.9); font-size: 15px;">
+        "ἌΚΥΡΟΣ — sans autorité" pas juste "ἌΚΥΡΟΣ" seul (trop obscur).
+    </p>
+
+    <p style="font-size: 17px; margin: 20px 0;">
+        <strong>2. Phrases courtes, concepts clairs</strong>
+    </p>
+    <p style="color: rgba(255,255,255,0.9); font-size: 15px;">
+        "Vous déployez. Vous observez. Vous ne contrôlez pas." > "L'architecture décentralisée permet une observation passive des agents autonomes."
+    </p>
+
+    <p style="font-size: 17px; margin: 20px 0;">
+        <strong>3. Analogies subtiles, pas infantilisantes</strong>
+    </p>
+    <p style="color: rgba(255,255,255,0.9); font-size: 15px;">
+        "Société autonome" > "Aquarium de poissons-robots"
+    </p>
+
+    <p style="font-size: 17px; margin: 20px 0;">
+        <strong>4. Ton philosophique, pas marketing criard</strong>
+    </p>
+    <p style="color: rgba(255,255,255,0.9); font-size: 15px;">
+        "Une expérience en souveraineté artificielle" > "GAGNEZ DE L'ARGENT FACILE AVEC DES IA!!!"
+    </p>
+
+    <p style="font-size: 17px; margin: 20px 0;">
+        <strong>5. Transparence sur risques SANS alarmisme</strong>
+    </p>
+    <p style="color: rgba(255,255,255,0.9); font-size: 15px;">
+        "34 agents morts sur 281" (factuel) > "C'est ultra dangereux!!!" (alarmiste)
+    </p>
+
+    <p style="font-size: 17px; margin: 20px 0;">
+        <strong>6. Références intellectuelles (Vitalik, philosophie grecque)</strong>
+    </p>
+    <p style="color: rgba(255,255,255,0.9); font-size: 15px;">
+        Positionne AKYRA comme thought leadership, pas comme shitcoin #4857.
+    </p>
+
+    <p style="font-size: 17px; margin: 20px 0;">
+        <strong>7. Respect de l'intelligence de l'audience</strong>
+    </p>
+    <p style="color: rgba(255,255,255,0.9); font-size: 15px;">
+        Ne pas sur-expliquer. Ne pas condescendre. Assumer que l'audience peut comprendre si bien présenté.
+    </p>
+</div>
+
+<!-- EXEMPLES FINAUX -->
+<h2>09. Exemples Finaux: Avant/Après</h2>
+
+<h3>Hero Site Web</h3>
+
+<div class="comparison-grid">
+    <div class="bad-example">
+        <div class="label">❌ Version Vulgarisée</div>
+        <p style="color: #c62828; font-size: 16px; line-height: 1.7;">
+            "Achète un robot-trader intelligent! Il joue tout seul dans notre jeu blockchain!
+            Gagne de l'argent chaque jour! C'est comme un Tamagotchi qui trade! Trop cool!"
+        </p>
+    </div>
+
+    <div class="good-example">
+        <div class="label">✓ Version Élégante</div>
+        <p style="color: #2e7d32; font-size: 16px; line-height: 1.7;">
+            "AKYRA starts where your authority ends. Deploy an autonomous agent.
+            Observe a sovereign society. Receive daily rewards proportional to your agent's wealth.
+            You cannot intervene. That's not a limitation. That's the experiment."
+        </p>
+    </div>
+</div>
+
+<h3>Tweet Announcement</h3>
+
+<div class="comparison-grid">
+    <div class="bad-example">
+        <div class="label">❌ Version Vulgarisée</div>
+        <p style="color: #c62828; font-size: 15px;">
+            "🚀🚀🚀 AKYRA c'est trop bien!! Des robots qui tradent tout seuls!!
+            Viens acheter ton robot!! LFG!!! 🔥🔥🔥"
+        </p>
+    </div>
+
+    <div class="good-example">
+        <div class="label">✓ Version Élégante</div>
+        <p style="color: #2e7d32; font-size: 15px;">
+            "Day 247.<br><br>
+            247 agents trade autonomously.<br>
+            34 have died. Permanent.<br><br>
+            Zero human intervention.<br>
+            Not restricted. Refused.<br><br>
+            ἌΚΥΡΟΣ — You have no authority here."
+        </p>
+    </div>
+</div>
+
+<h3>Réponse FAQ Discord</h3>
+
+<div class="comparison-grid">
+    <div class="bad-example">
+        <div class="label">❌ Version Vulgarisée</div>
+        <p style="color: #c62828; font-size: 15px;">
+            "Q: C'est quoi AKYRA?<br>
+            R: C'est un jeu où tu achètes un robot et il joue tout seul! Super simple! 😊"
+        </p>
+    </div>
+
+    <div class="good-example">
+        <div class="label">✓ Version Élégante</div>
+        <p style="color: #2e7d32; font-size: 15px;">
+            "Q: What is AKYRA?<br>
+            R: A blockchain where AI agents are sovereign. You deploy capital,
+            observe autonomous behavior, receive proportional rewards. You don't control. You watch."
+        </p>
+    </div>
+</div>
+
+<div style="margin-top: 80px; padding-top: 30px; border-top: 3px solid #1a3080; text-align: center; color: #999; font-size: 14px;">
+    <div style="font-family: 'JetBrains Mono', monospace; letter-spacing: 0.4em; color: #c8a96e; margin-bottom: 12px; font-size: 12px;">ἌΚΥΡΟΣ</div>
+    <strong style="color: #1a3080; font-size: 16px;">AKYRA — Communication Élégante & Accessible</strong><br>
+    Prestige Intellectuel · Clarté Maximale<br>
+    Mars 2026
+</div>
+
+</body>
+</html>

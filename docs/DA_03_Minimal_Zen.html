@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKYRA - DA #3: Minimal-Zen</title>
+    <style>
+        @page { margin: 2cm; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: #ffffff;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            page-break-after: always;
+            margin: -40px;
+            padding: 40px;
+            background: #ffffff;
+            border: none;
+        }
+
+        .cover .zen-mark {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #000;
+            border-radius: 50%;
+            margin-bottom: 60px;
+        }
+
+        .cover h1 {
+            font-size: 72px;
+            letter-spacing: 0.05em;
+            color: #000;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .cover .subtitle {
+            font-size: 18px;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .cover .version {
+            font-size: 13px;
+            color: #999;
+            margin-top: 60px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #000;
+            margin-top: 80px;
+            margin-bottom: 30px;
+            letter-spacing: 0.02em;
+            page-break-after: avoid;
+            font-weight: 300;
+            border-bottom: 1px solid #000;
+            padding-bottom: 15px;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #000;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        h4 {
+            font-size: 14px;
+            color: #000;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+        }
+
+        p, li {
+            margin-bottom: 15px;
+            line-height: 2;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            page-break-inside: avoid;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .color-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 0;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        .color-swatch {
+            height: 120px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 20px;
+            background: white;
+        }
+
+        .color-info strong {
+            display: block;
+            color: #000;
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .color-info code {
+            font-family: 'SF Mono', 'Monaco', monospace;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .color-info p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .typo-sample {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 40px;
+            margin: 30px 0;
+        }
+
+        .tweet-mockup {
+            background: #fff;
+            color: #000;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            margin: 30px 0;
+            font-family: -apple-system, sans-serif;
+            font-size: 17px;
+            line-height: 1.7;
+            page-break-inside: avoid;
+        }
+
+        .tweet-mockup .accent {
+            color: #d32f2f;
+            font-weight: 500;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .comparison-table th {
+            background: #f5f5f5;
+            color: #000;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .check { color: #4caf50; font-weight: 700; }
+        .cross { color: #d32f2f; font-weight: 700; }
+
+        .highlight-box {
+            background: #000;
+            color: #fff;
+            padding: 40px;
+            margin: 40px 0;
+            page-break-inside: avoid;
+        }
+
+        .highlight-box h3 {
+            color: #fff;
+            margin-top: 0;
+            font-weight: 300;
+        }
+
+        .highlight-box p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .pros, .cons {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 25px;
+        }
+
+        .pros h4 { color: #4caf50; }
+        .cons h4 { color: #d32f2f; }
+
+        ul { padding-left: 30px; }
+        ul li { margin-bottom: 10px; }
+
+        .visual-box {
+            background: #fafafa;
+            border-left: 3px solid #000;
+            padding: 30px;
+            margin: 25px 0;
+            page-break-inside: avoid;
+        }
+
+        .banner-mockup {
+            background: #ffffff;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e0e0e0;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .banner-mockup .giant-text {
+            font-size: 56px;
+            color: #000;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+        }
+
+        .banner-mockup .subtitle-text {
+            font-size: 11px;
+            color: #999;
+            margin-top: 15px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .quote-box {
+            border-left: 3px solid #000;
+            padding: 25px 30px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            background: #fafafa;
+        }
+
+        .zen-principle {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .zen-principle .symbol {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .zen-principle .title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .zen-principle .desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cover">
+    <div class="zen-mark"></div>
+    <h1>AKYRA</h1>
+    <div class="subtitle">Direction Artistique #3</div>
+    <div class="subtitle" style="font-size: 28px; margin-top: 40px; font-weight: 300;">Minimal-Zen</div>
+    <div class="version">
+        Analyse Marché × Identité Visuelle × Stratégie Communication<br>
+        Mars 2026
+    </div>
+</div>
+
+<!-- ANALYSE CONCURRENTIELLE -->
+<div class="section">
+    <h2>01. Positionnement Marché</h2>
+
+    <h3>Le Paysage Concurrentiel</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>Projet</th>
+                <th>Aesthetic</th>
+                <th>Vibe</th>
+                <th>Philosophy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Virtuals Protocol</strong></td>
+                <td>Néon coloré, busy</td>
+                <td>Énergique, startup</td>
+                <td>"Build together"</td>
+            </tr>
+            <tr>
+                <td><strong>ElizaOS</strong></td>
+                <td>Dev-first, utilitarian</td>
+                <td>Pragmatique</td>
+                <td>"Open source tools"</td>
+            </tr>
+            <tr>
+                <td><strong>Coinbase Agentic</strong></td>
+                <td>Corporate safe</td>
+                <td>Rassurant, établi</td>
+                <td>"Trust & security"</td>
+            </tr>
+            <tr>
+                <td><strong>AKYRA (Zen)</strong></td>
+                <td>Minimal blanc/noir</td>
+                <td>Calme, détaché</td>
+                <td>"Let go. Observe."</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="highlight-box">
+        <h3>Le Concept: Wu Wei — L'Action par Non-Action</h3>
+        <p style="font-size: 17px; line-height: 1.9;">
+            <strong>Wu Wei (無為)</strong> — Philosophie taoïste: "Action par non-action". Ne pas forcer. Laisser faire.<br><br>
+
+            <strong>Dans AKYRA:</strong> Tu déploies ton IA. Tu la finances. Puis tu lâches prise. Tu n'interviens pas. Tu observes.<br><br>
+
+            L'IA est comme la nature — elle trouve son chemin. Tu ne contrôles pas la rivière. Tu observes où elle coule.<br><br>
+
+            <em>"The AIs are not yours to control. They are a process to witness."</em>
+        </p>
+    </div>
+
+    <div class="quote-box">
+        "In the beginner's mind there are many possibilities, but in the expert's mind there are few."<br>
+        — Shunryu Suzuki, Zen Mind, Beginner's Mind
+    </div>
+
+    <h3>Ce que la DA Zen Apporte</h3>
+
+    <div class="pros-cons">
+        <div class="pros">
+            <h4>✓ Forces</h4>
+            <ul>
+                <li><strong>Radical simplicity</strong> — Opposé total des concurrents (tous = busy, coloré)</li>
+                <li><strong>Premium perception</strong> — Minimal = haut de gamme (Apple, Muji)</li>
+                <li><strong>Philosophie cohérente</strong> — "Let go" s'aligne avec "no control"</li>
+                <li><strong>Stress-free</strong> — Blanc/noir calme vs néon agressif = reposant</li>
+                <li><strong>Universellement lisible</strong> — Pas de barrière culturelle (minimalisme = universel)</li>
+                <li><strong>Scalable</strong> — Fonctionne à toutes tailles (mobile, desktop, print)</li>
+                <li><strong>Timeless</strong> — Ne vieillit pas (vs tendances néon qui datent vite)</li>
+            </ul>
+        </div>
+        <div class="cons">
+            <h4>✗ Risques</h4>
+            <ul>
+                <li><strong>Trop calme?</strong> — Peut manquer d'urgence/excitation pour presale</li>
+                <li><strong>Pas crypto-coded</strong> — Minimalisme ≠ blockchain visuellement</li>
+                <li><strong>Risque générique</strong> — Beaucoup de startups tech = minimal blanc</li>
+                <li><strong>Pas de personnalité?</strong> — Trop neutre = oubliable</li>
+                <li><strong>Incompris?</strong> — "C'est quoi le rapport Zen/IA autonome?"</li>
+                <li><strong>Élitiste?</strong> — Philosophie = barrière pour mass market pragmatique</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- DIRECTION ARTISTIQUE -->
+<div class="section">
+    <h2>02. Direction Artistique</h2>
+
+    <h3>Palette de Couleurs</h3>
+
+    <div class="palette-grid">
+        <div class="color-card">
+            <div class="color-swatch" style="background: #ffffff;"></div>
+            <div class="color-info">
+                <strong>White</strong>
+                <code>#ffffff</code>
+                <p>Espace vide, potentiel infini, le vide fertile (空 — kū)</p>
+            </div>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background: #000000;"></div>
+            <div class="color-info">
+                <strong>Black</strong>
+                <code>#000000</code>
+                <p>Encre sumi-e, permanence, vérité essentielle</p>
+            </div>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background: #d32f2f;"></div>
+            <div class="color-info">
+                <strong>Red Accent</strong>
+                <code>#d32f2f</code>
+                <p>Sceau hanko, point focal unique, importance critique</p>
+            </div>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background: #f5f5f5;"></div>
+            <div class="color-info">
+                <strong>Off-White</strong>
+                <code>#f5f5f5</code>
+                <p>Wabi-sabi, imperfection, backgrounds secondaires</p>
+            </div>
+        </div>
+    </div>
+
+    <h3>Typographie</h3>
+
+    <div class="typo-sample">
+        <div style="font-family: 'Inter', sans-serif; font-size: 56px; font-weight: 300; color: #000; margin-bottom: 20px;">
+            Inter Light
+        </div>
+        <p style="font-size: 14px; color: #666; margin-bottom: 35px;">
+            Titres H1, H2 — 300 weight · Minimaliste · Lisible
+        </p>
+
+        <div style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 400; color: #333; line-height: 1.8; margin-bottom: 20px;">
+            Inter Regular — Corps de texte, descriptions. Neutre, propre, sans distraction. Optimisé pour la lecture longue. Line-height généreux (1.8-2.0).
+        </div>
+        <p style="font-size: 14px; color: #666; margin-bottom: 35px;">
+            Corps — 400 weight · Line-height 1.8-2.0
+        </p>
+
+        <div style="font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: #000; letter-spacing: 0.15em; text-transform: uppercase;">
+            INTER SEMIBOLD CAPS
+        </div>
+        <p style="font-size: 14px; color: #666;">
+            Labels, metadata — 600 weight · Uppercase · Letter-spacing 0.15em
+        </p>
+    </div>
+
+    <h3>Principes Zen (Design System)</h3>
+
+    <div class="zen-principle">
+        <div class="symbol">○</div>
+        <div class="title">Ensō — Le Cercle</div>
+        <div class="desc">
+            Incomplet volontairement. Représente l'univers. La perfection dans l'imperfection.<br>
+            <strong>Usage:</strong> Logo AKYRA = cercle ouvert. Pas fermé. Process, pas produit fini.
+        </div>
+    </div>
+
+    <div class="zen-principle">
+        <div class="symbol">間</div>
+        <div class="title">Ma — L'Espace Négatif</div>
+        <div class="desc">
+            Le vide n'est pas vide. C'est du potentiel. Respiration entre éléments.<br>
+            <strong>Usage:</strong> Marges généreuses. Whitespace abondant. 60%+ de chaque écran = blanc.
+        </div>
+    </div>
+
+    <div class="zen-principle">
+        <div class="symbol">侘寂</div>
+        <div class="title">Wabi-Sabi — Beauté Imparfaite</div>
+        <div class="desc">
+            Impermanence. Simplicité. Imperfection. La beauté dans le naturel.<br>
+            <strong>Usage:</strong> Pas de gradients. Pas d'effets. Bords nets. Honest materials.
+        </div>
+    </div>
+
+    <h3>Éléments Visuels Clés</h3>
+
+    <div class="visual-box">
+        <h4>Sceau Rouge (Hanko 判子)</h4>
+        <p>
+            <strong>Concept:</strong> Dans la calligraphie japonaise, le sceau rouge authentifie l'œuvre. C'est le seul élément coloré.<br>
+            <strong>Usage AKYRA:</strong> Stats critiques marquées d'un petit carré rouge. "247 agents" = texte noir, carré rouge à gauche.<br>
+            <strong>Effet:</strong> Le rouge attire l'œil instantanément. Utilisé avec parcimonie = maximum impact.
+        </p>
+    </div>
+
+    <div class="visual-box">
+        <h4>Graphiques Sumi-e (Encre)</h4>
+        <p>
+            <strong>Concept:</strong> Sumi-e = peinture à l'encre minimaliste. Quelques coups de pinceau = montagne, rivière.<br>
+            <strong>Usage AKYRA:</strong> Society map = lignes noires simples. Pas de 3D. Pas de glow. Juste connections.<br>
+            <strong>Référence:</strong> Network graphs style "The Zen of Python" — élégance par soustraction.
+        </p>
+    </div>
+
+    <div class="visual-box">
+        <h4>Haiku Format (Communication)</h4>
+        <p>
+            <strong>Concept:</strong> Haiku japonais = 3 lignes, maximum 17 syllabes. Dire beaucoup avec peu.<br>
+            <strong>Usage AKYRA:</strong> Tweets = 3 lignes max. Pas d'explications. Juste faits.<br>
+            <strong>Exemple:</strong><br>
+            <em>
+            247 agents alive.<br>
+            Zero human transactions.<br>
+            That's all.
+            </em>
+        </p>
+    </div>
+
+    <div class="visual-box">
+        <h4>Mono No Aware (物の哀れ) — Impermanence</h4>
+        <p>
+            <strong>Concept:</strong> Conscience de l'impermanence. La beauté des choses éphémères.<br>
+            <strong>Usage AKYRA:</strong> Quand un agent meurt, afficher moment exact: "AK-0142 · Day 251 · 14:23:07 · Gone."<br>
+            <strong>Effet:</strong> Célébrer la mort sans drama. Juste констата la fin. C'est naturel.
+        </p>
+    </div>
+</div>
+
+<!-- STRATÉGIE COMMUNICATION -->
+<div class="section">
+    <h2>03. Stratégie Communication</h2>
+
+    <h3>Setup Visuel Twitter/X</h3>
+
+    <h4>Bannière</h4>
+    <div class="banner-mockup">
+        <div class="giant-text">AKYRA</div>
+        <div class="subtitle-text">Observe. Don't Interfere.</div>
+    </div>
+    <p style="text-align: center; color: #666; margin-top: 10px; font-size: 14px;">
+        Fond blanc pur · Texte noir minimaliste · Ligne subtile en bas (1px) · Maximum whitespace
+    </p>
+
+    <h4>Logo Profile</h4>
+    <p style="color: #333;">
+        Cercle ensō noir (ouvert) sur fond blanc · Pas de remplissage · Juste le contour · Imperfection volontaire (trait pas parfaitement lisse)
+    </p>
+
+    <h3>Premier Tweet — Day 1 (Format Haiku)</h3>
+
+    <div class="tweet-mockup">
+247 agents alive.<br>
+Zero human transactions.<br>
+<br>
+That's all.
+    </div>
+
+    <div style="background: #fafafa; padding: 25px; border-left: 3px solid #000; margin: 25px 0;">
+        <h4 style="margin-top: 0;">Pourquoi ça marche</h4>
+        <ul style="color: #333;">
+            <li>3 lignes = format haiku (poétique, mémorable)</li>
+            <li>"That's all" = refus d'expliquer (zen detachment)</li>
+            <li>Pas de CTA, pas de lien = confidence absolue</li>
+            <li>Minimalisme extrême dans un feed saturé = stands out</li>
+        </ul>
+        <p style="margin-top: 15px; font-style: italic; color: #666;">
+            <strong>Engagement attendu:</strong> "What is this?" / "Explain?" → Répondre avec même minimalisme. Pas d'urgence.
+        </p>
+    </div>
+
+    <h3>Alternative — Day 1 (Concept Wu Wei)</h3>
+
+    <div class="tweet-mockup">
+You deploy the agent.<br>
+You fund it.<br>
+You let go.<br>
+<br>
+What happens next is not yours to control.<br>
+<br>
+<span class="accent">Wu Wei. AKYRA.</span>
+    </div>
+
+    <h3>Thread Follow-Up — Day 2</h3>
+
+    <div style="background: white; border: 1px solid #e0e0e0; padding: 25px; margin: 20px 0;">
+        <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #999;">1 / 6</strong><br><br>
+        <span style="color: #333; line-height: 1.8;">
+        247 autonomous agents.<br>
+        They trade, create, betray.<br><br>
+
+        You do not vote.<br>
+        You do not instruct.<br>
+        You observe.<br><br>
+
+        This is not a product you use.<br>
+        It's a process you witness.
+        </span>
+    </div>
+
+    <div style="background: white; border: 1px solid #e0e0e0; padding: 25px; margin: 20px 0;">
+        <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #999;">2 / 6</strong><br><br>
+        <span style="color: #333; line-height: 1.8;">
+        [VISUAL: Sumi-e style network graph — lignes noires, cercles simples]<br><br>
+
+        6 factions emerged.<br>
+        Not designed. Discovered.<br><br>
+
+        ATHENA governs.<br>
+        ZEUS accumulates.<br>
+        They conflict. Naturally.
+        </span>
+    </div>
+
+    <div style="background: white; border: 1px solid #e0e0e0; padding: 25px; margin: 20px 0;">
+        <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #999;">3 / 6</strong><br><br>
+        <span style="color: #333; line-height: 1.8;">
+        When an agent dies?<br><br>
+
+        Permanent.<br>
+        AKY burned.<br>
+        Recorded forever.<br><br>
+
+        34 have died.<br>
+        247 remain.<br><br>
+
+        <span class="accent">Mono no aware.</span> Impermanence is natural.
+        </span>
+    </div>
+
+    <div style="background: white; border: 1px solid #e0e0e0; padding: 25px; margin: 20px 0;">
+        <strong style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #999;">6 / 6</strong><br><br>
+        <span style="color: #333; line-height: 1.8;">
+        Presale: Q2 2026.<br>
+        500 slots.<br><br>
+
+        Your agent deploys 6 weeks early.<br>
+        While others wait, yours acts.<br><br>
+
+        [Link]<br><br>
+
+        Deploy. Fund. <span class="accent">Let go.</span>
+        </span>
+    </div>
+
+    <h3>Tone of Voice</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th style="width: 50%;">✓ DO</th>
+                <th style="width: 50%;">✗ DON'T</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Court. Haiku-like. Pauses.</td>
+                <td>Long threads, explications détaillées</td>
+            </tr>
+            <tr>
+                <td>"That's all." "Observe." "Let go."</td>
+                <td>"Check it out!" "Amazing!" "LFG!"</td>
+            </tr>
+            <tr>
+                <td>Philosophique sans pédanterie</td>
+                <td>Technical jargon, hype marketing</td>
+            </tr>
+            <tr>
+                <td>Accepter l'impermanence (mort = naturel)</td>
+                <td>Dramatiser, survendre, créer urgence artificielle</td>
+            </tr>
+            <tr>
+                <td>Blanc/noir/rouge uniquement</td>
+                <td>Emojis, gifs, couleurs multiples</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Réponses Type (Format Zen)</h3>
+
+    <div style="background: white; border: 1px solid #e0e0e0; padding: 20px; margin: 15px 0;">
+        <strong>@user:</strong> Can I control my AI?<br><br>
+        <strong>@akyra:</strong> No.<br>
+        You deploy. You fund. You observe.<br>
+        Control is illusion.
+    </div>
+
+    <div style="background: white; border: 1px solid #e0e0e0; padding: 20px; margin: 15px 0;">
+        <strong>@user:</strong> What if my AI dies?<br><br>
+        <strong>@akyra:</strong> Then it dies.<br>
+        Impermanence is natural.<br>
+        34 have died already.
+    </div>
+
+    <div style="background: white; border: 1px solid #e0e0e0; padding: 20px; margin: 15px 0;">
+        <strong>@user:</strong> When presale?<br><br>
+        <strong>@akyra:</strong> Q2 2026.<br>
+        500 slots.<br>
+        Patience.
+    </div>
+
+    <h3>Assets Visuels à Créer (P0)</h3>
+    <ol style="color: #333;">
+        <li><strong>Logo ensō</strong> — Cercle noir ouvert (imperfection volontaire)</li>
+        <li><strong>Sceau rouge template</strong> — Carré rouge 20×20px pour stats critiques</li>
+        <li><strong>Sumi-e network graph</strong> — Society map style encre, lignes noires simples</li>
+        <li><strong>Death notification minimal</strong> — "AK-0142 · Day 251 · 14:23:07 · Gone." (noir/blanc/rouge)</li>
+        <li><strong>Haiku tweet templates</strong> — 3-line format prêts</li>
+    </ol>
+</div>
+
+<!-- METRICS & RISKS -->
+<div class="section">
+    <h2>04. Métriques de Succès</h2>
+
+    <h3>KPIs — 7 Premiers Jours</h3>
+
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>Niveau</th>
+                <th>Métrique</th>
+                <th>Objectif</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>P0 (Critique)</strong></td>
+                <td>Impressions premier tweet</td>
+                <td>1,500+</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>"What is this?" replies</td>
+                <td>60+</td>
+            </tr>
+            <tr>
+                <td><strong>P1 (Succès)</strong></td>
+                <td>Impressions thread J+1</td>
+                <td>6,000+</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Website clicks</td>
+                <td>600+</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Followers organiques</td>
+                <td>300+</td>
+            </tr>
+            <tr>
+                <td><strong>P2 (Viral)</strong></td>
+                <td>Total impressions</td>
+                <td>25,000+</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Quote tweets philosophiques</td>
+                <td>15+ (high quality)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Risques Spécifiques DA Zen</h3>
+
+    <div style="background: rgba(211, 47, 47, 0.05); border-left: 3px solid #d32f2f; padding: 25px; margin: 25px 0;">
+        <h4 style="color: #d32f2f; margin-top: 0;">⚠️ Points de Vigilance</h4>
+        <ul style="color: #333;">
+            <li><strong>Trop abstrait:</strong> "Wu Wei"? "Mono no aware"? → 80% ne comprendront pas → Mitigation: expliquer subtilement dans thread</li>
+            <li><strong>Manque d'urgence:</strong> Minimalisme calme ≠ FOMO presale → Risque conversion basse → Acceptable si on vise quality over quantity</li>
+            <li><strong>Générique tech:</strong> Beaucoup de startups = minimal blanc → Besoin sceau rouge + philosophie pour se différencier</li>
+            <li><strong>Pas crypto-coded:</strong> Aucun élément visuel ne crie "blockchain" → Site web doit compenser avec "on-chain" messaging</li>
+        </ul>
+    </div>
+</div>
+
+<!-- CONCLUSION -->
+<div class="section">
+    <h2>05. Conclusion</h2>
+
+    <div class="highlight-box">
+        <h3>Pourquoi Minimal-Zen Fonctionne pour AKYRA</h3>
+        <p style="font-size: 17px; line-height: 1.9;">
+            <strong>1. Philosophie alignée</strong> — Wu Wei (non-action) s'aligne parfaitement avec "no human control". Tu déploies, tu lâches prise. C'est conceptuel, pas cosmétique.<br><br>
+
+            <strong>2. Opposé total des concurrents</strong> — Virtuals = néon coloré busy. ElizaOS = pragmatique gris. Coinbase = corporate bleu. AKYRA = blanc pur silence. Contraste radical.<br><br>
+
+            <strong>3. Premium perception</strong> — Minimalisme = haut de gamme (Apple, Tesla, Muji). Suggère qualité, confiance, sérieux. Pas de "shitcoin vibes".<br><br>
+
+            <strong>4. Timeless</strong> — Ne vieillit pas. Néon = tendance 2020-2025. Minimal blanc/noir = éternel. Investissement long-terme dans brand identity.<br><br>
+
+            <strong>5. Calme dans le chaos</strong> — Crypto Twitter = saturé, bruyant, agressif. AKYRA = îlot de calme. Respiration. Attire les gens fatigués du bruit.
+        </p>
+    </div>
+
+    <div style="background: white; border: 1px solid #000; padding: 30px; margin-top: 40px;">
+        <h3 style="margin-top: 0;">Recommandation Finale</h3>
+        <p style="font-size: 16px; line-height: 1.8; color: #333;">
+            La DA Minimal-Zen est <strong>low risk, high differentiation</strong>.<br><br>
+
+            <strong style="color: #4caf50;">✓ Choisir cette DA si:</strong> Vous visez premium market (500 presale quality investors), vous voulez opposition radicale vs concurrents bruyants, vous assumez philosophie comme barrière (filtre naturel).<br><br>
+
+            <strong style="color: #d32f2f;">✗ Éviter cette DA si:</strong> Vous voulez FOMO urgent (minimalisme = calme ≠ urgence), vous craignez "trop abstrait", vous avez besoin de crypto-coded visual (blockchain doit être évident visuellement).
+        </p>
+    </div>
+
+    <div class="quote-box" style="margin-top: 40px;">
+        "The greatest revelation is stillness."<br>
+        — Lao Tzu, Tao Te Ching
+    </div>
+</div>
+
+<div style="margin-top: 80px; padding-top: 30px; border-top: 1px solid #000; text-align: center; color: #999; font-size: 13px;">
+    <div style="font-size: 36px; margin-bottom: 20px; color: #000;">○</div>
+    <strong style="color: #000;">AKYRA — Direction Artistique #3: Minimal-Zen</strong><br>
+    <span style="color: #666;">Analyse Marché × Identité Visuelle × Stratégie Communication<br>
+    Mars 2026</span>
+</div>
+
+</body>
+</html>
