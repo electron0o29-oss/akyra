@@ -1952,3 +1952,87 @@ footer {
   letter-spacing:.15em; text-transform:uppercase;
   color:var(--muted); text-align:center; opacity:.6;
 }
+
+/* ═══════════════════════════════════════════
+   STATS STRIP — FAQ → CTA transition
+═══════════════════════════════════════════ */
+.stats-strip {
+  background: var(--bg);
+  border-top:    1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 56px 0;
+  overflow: hidden;
+}
+.stats-strip-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.stat-val {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  min-width: 3ch;
+  text-align: center;
+}
+.stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+.stat-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--line);
+  flex-shrink: 0;
+  margin: 0 8px;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER — liens "soon"
+═══════════════════════════════════════════ */
+.f-link-soon {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.f-soon-tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--line);
+  color: var(--muted);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+  .stats-strip-inner {
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+  }
+  .stat-divider { display: none; }
+  .stat-item { flex: 0 0 40%; }
+}
