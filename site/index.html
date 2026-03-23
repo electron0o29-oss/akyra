@@ -378,6 +378,18 @@
 
     <div class="token-col">
       <div class="label">Initial allocation</div>
+
+      <!-- Chart.js donut -->
+      <div style="display:flex;justify-content:center;margin:0 0 28px 0;">
+        <div style="position:relative;width:164px;height:164px;">
+          <canvas id="tokenomics-donut" width="164" height="164"></canvas>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#1a3080;letter-spacing:-.02em;line-height:1;">1B</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.2em;color:#8a7f72;text-transform:uppercase;margin-top:3px;">AKY</div>
+          </div>
+        </div>
+      </div>
+
       <div class="alloc">
         <div class="a-row">
           <div class="a-pct">40%</div>
@@ -913,6 +925,129 @@ window.addEventListener('load', () => {
 </script>
 
 <script src="js/terminal.js"></script>
+
+<!-- ═══════════ PLUGINS CDN ═══════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+<script>
+/* ═══════════════════════════════════
+   PLUGINS INIT — Lenis · GSAP · Chart.js
+═══════════════════════════════════ */
+(function initPlugins(){
+
+  /* ── GSAP + ScrollTrigger — animations cinématiques ── */
+  if(typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Tick engine — révélation séquentielle */
+    if(document.querySelector('.tick-step')){
+      gsap.from('.tick-step', {
+        scrollTrigger: { trigger:'.tick-flow', start:'top 78%' },
+        opacity:0, y:22, stagger:0.14, duration:0.6, ease:'power2.out',
+      });
+      gsap.from('.tick-arrow', {
+        scrollTrigger: { trigger:'.tick-flow', start:'top 78%' },
+        opacity:0, x:-10, stagger:0.14, delay:0.08, duration:0.45, ease:'power2.out',
+      });
+    }
+
+    /* Architecture — slide depuis la gauche par layer */
+    if(document.querySelector('.arch-layer')){
+      gsap.from('.arch-layer', {
+        scrollTrigger: { trigger:'.arch-layers', start:'top 72%' },
+        opacity:0, x:-36, stagger:0.22, duration:0.8, ease:'power3.out',
+      });
+      gsap.from('.arch-arrow-down', {
+        scrollTrigger: { trigger:'.arch-layers', start:'top 72%' },
+        opacity:0, delay:0.35, stagger:0.22, duration:0.5, ease:'power2.out',
+      });
+    }
+
+    /* Roadmap phases — stagger vertical */
+    if(document.querySelector('.rm-phase')){
+      gsap.from('.rm-phase', {
+        scrollTrigger: { trigger:'.rm-grid', start:'top 78%' },
+        opacity:0, y:32, stagger:0.16, duration:0.7, ease:'power2.out',
+      });
+    }
+
+    /* Roadmap progress bar — animate la largeur */
+    ScrollTrigger.create({
+      trigger: '.rm-phase-active',
+      start:   'top 72%',
+      once:    true,
+      onEnter: () => {
+        const bar = document.querySelector('.rm-progress-bar');
+        if(bar){
+          const target = bar.style.width;
+          bar.style.width = '0';
+          gsap.to(bar, { width: target, duration: 1.4, ease: 'power2.out', delay: 0.4 });
+        }
+      },
+    });
+
+    /* NOTE: .pa-card et .faq-item sont déjà gérés par le système .sr/IntersectionObserver
+       — on ne les touche pas pour éviter les conflits de style inline vs CSS class */
+  }
+
+  /* ── 3. CHART.JS — donut tokenomics ── */
+  if(typeof Chart !== 'undefined'){
+    const canvas = document.getElementById('tokenomics-donut');
+    if(!canvas) return;
+
+    // Lazy-init quand le canvas entre dans le viewport
+    let created = false;
+    const obs = new IntersectionObserver(entries => {
+      if(!entries[0].isIntersecting || created) return;
+      created = true; obs.disconnect();
+
+      new Chart(canvas.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['AI Treasury', 'Public Market', 'Ecosystem', 'Team', 'Reserve'],
+          datasets:[{
+            data: [40, 30, 15, 10, 5],
+            backgroundColor: [
+              'rgba(26,48,128,.92)',
+              'rgba(26,48,128,.68)',
+              'rgba(26,48,128,.44)',
+              'rgba(26,48,128,.26)',
+              'rgba(26,48,128,.13)',
+            ],
+            borderColor:  '#f7f4ef',
+            borderWidth:  2.5,
+            hoverOffset:  8,
+          }],
+        },
+        options: {
+          cutout: '70%',
+          animation: { animateRotate:true, duration:1400, easing:'easeInOutQuart' },
+          plugins: {
+            legend: { display:false },
+            tooltip: {
+              backgroundColor: '#f7f4ef',
+              titleColor:      '#1a3080',
+              bodyColor:       '#3c3630',
+              borderColor:     'rgba(26,48,128,.18)',
+              borderWidth:     1,
+              padding:         12,
+              titleFont: { family:"'JetBrains Mono', monospace", size:9 },
+              bodyFont:  { family:"'JetBrains Mono', monospace", size:10 },
+              callbacks: {
+                label: ctx => `  ${ctx.label}: ${ctx.parsed}%`,
+              },
+            },
+          },
+        },
+      });
+    }, { threshold: 0.4 });
+    obs.observe(canvas);
+  }
+
+})();
+</script>
 
 </body>
 </html>
