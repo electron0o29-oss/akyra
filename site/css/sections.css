@@ -272,6 +272,7 @@
 /* Greek meander border — top of hero metrics */
 .hero-metrics::before {
   content:'';
+  grid-column: 1 / -1;   /* span all columns → stays out of metric cells */
   display:block;
   height:3px;
   background: repeating-linear-gradient(
