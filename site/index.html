@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="css/variables.css">
 <link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/components.css?v=2">
-<link rel="stylesheet" href="css/sections.css?v=10">
+<link rel="stylesheet" href="css/sections.css?v=12">
 <link rel="stylesheet" href="css/responsive.css?v=4">
 </head>
 <body>
@@ -64,6 +64,7 @@
       <div class="nav-dot"></div>
       Testnet Live
     </div>
+    <button onclick="openBridge()" class="btn btn-ghost btn-sm">Bridge</button>
     <button onclick="openWaitlist()" class="btn btn-ghost btn-sm">Join Presale</button>
     <a href="https://aky.akyra.io" class="btn btn-solid btn-sm">Enter App →</a>
   </div>
@@ -1034,10 +1035,117 @@ window.addEventListener('load', () => {
   </div>
 </div>
 
+<!-- ═══════════ BRIDGE MODAL ═══════════ -->
+<div id="bridge-modal" class="wl-overlay" role="dialog" aria-modal="true">
+  <div class="br-modal">
+    <div class="wl-close" onclick="closeBridge()" aria-label="Close">&times;</div>
+
+    <!-- HEADER — always visible -->
+    <div class="br-header">
+      <h2 class="br-title">Bridge</h2>
+      <div class="br-wallet-pill" id="br-wallet-pill" style="display:none;">
+        <div class="br-wallet-dot"></div>
+        <span id="br-addr"></span>
+        <button onclick="bridgeDisconnect()" class="br-pill-disconnect">×</button>
+      </div>
+    </div>
+
+    <!-- STATE: Main bridge UI (connect + form combined) -->
+    <div id="br-main-view">
+
+      <!-- FROM card -->
+      <div class="br-card">
+        <div class="br-card-header">
+          <span class="br-card-label">From</span>
+          <div class="br-chain-badge">
+            <div class="br-chain-icon" style="background:#627eea;"></div>
+            <span>Ethereum Sepolia</span>
+          </div>
+        </div>
+        <div class="br-amount-row">
+          <input type="number" id="br-amount" class="br-amount-input" placeholder="0" step="any" min="0" autocomplete="off">
+          <div class="br-token-badge">
+            <div class="br-token-icon">Ξ</div>
+            <span>ETH</span>
+          </div>
+        </div>
+        <div class="br-card-footer">
+          <div class="br-balance">Balance: <span id="br-balance-val">—</span></div>
+          <button onclick="bridgeMax()" class="br-max-btn">MAX</button>
+        </div>
+      </div>
+
+      <!-- Arrow separator -->
+      <div class="br-arrow-separator">
+        <div class="br-arrow-circle">↓</div>
+      </div>
+
+      <!-- TO card -->
+      <div class="br-card">
+        <div class="br-card-header">
+          <span class="br-card-label">To</span>
+          <div class="br-chain-badge br-chain-akyra">
+            <div class="br-chain-icon" style="background:var(--blue);"></div>
+            <span>AKYRA L2</span>
+          </div>
+        </div>
+        <div class="br-receive-row">
+          <span class="br-receive-amount" id="br-receive-amount">0</span>
+          <div class="br-token-badge">
+            <div class="br-token-icon">Ξ</div>
+            <span>ETH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time estimate -->
+      <div class="br-time-estimate" id="br-time-row">~2-5 minutes</div>
+
+      <!-- Connect or Deposit button -->
+      <button onclick="bridgeConnect()" class="btn btn-solid br-main-btn" id="br-connect-btn">
+        Connect wallet
+      </button>
+      <button onclick="bridgeDeposit()" class="btn btn-solid br-main-btn" id="br-deposit-btn" style="display:none;">
+        Deposit
+      </button>
+
+      <button onclick="bridgeAddChain()" class="br-add-chain">
+        + Add AKYRA Chain to MetaMask
+      </button>
+
+      <div id="br-connect-error" class="br-error"></div>
+      <div id="br-form-error" class="br-error"></div>
+    </div>
+
+    <!-- STATE: Transaction pending / success -->
+    <div id="br-tx-view" style="display:none;">
+      <div class="br-tx-status">
+        <div class="br-spinner" id="br-spinner"></div>
+        <div class="br-tx-success" id="br-tx-success" style="display:none;">
+          <div class="wl-success-icon">✓</div>
+        </div>
+        <div class="br-tx-title" id="br-tx-title">Waiting for confirmation...</div>
+        <div class="br-tx-sub" id="br-tx-sub"></div>
+      </div>
+      <div class="br-tx-links" id="br-tx-links" style="display:none;">
+        <a id="br-l1-link" href="#" target="_blank" rel="noopener" class="br-link">View on Sepolia ↗</a>
+        <a id="br-l2-link" href="#" target="_blank" rel="noopener" class="br-link">View on AKYRA Explorer ↗</a>
+      </div>
+      <button onclick="bridgeReset()" class="btn btn-ghost br-main-btn" style="margin-top:16px;">
+        Bridge another
+      </button>
+    </div>
+
+    <div class="wl-disclaimer">Testnet only · No real assets · AKYRA 2026</div>
+  </div>
+</div>
+
 <!-- ═══════════ PLUGINS CDN ═══════════ -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
+<script src="js/bridge.js"></script>
 
 <script>
 /* ═══════════════════════════════════

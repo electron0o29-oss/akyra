@@ -1955,6 +1955,267 @@ footer {
 }
 
 /* ═══════════════════════════════════════════
+   BRIDGE MODAL — ZKSync-style Card Layout
+═══════════════════════════════════════════ */
+
+/* Modal container */
+.br-modal {
+  position:relative;
+  width:min(480px, 92vw);
+  background:var(--bg);
+  border:1px solid var(--line2);
+  padding:32px 28px;
+  transform:translateY(20px);
+  transition:transform .3s ease;
+  box-shadow:0 32px 80px rgba(26,48,128,.12);
+}
+.wl-overlay.open .br-modal {
+  transform:translateY(0);
+}
+
+/* Header */
+.br-header {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:24px;
+}
+.br-title {
+  font-family:var(--font-title); font-weight:700;
+  font-size:22px; color:var(--head);
+  letter-spacing:-.01em;
+}
+
+/* Wallet pill */
+.br-wallet-pill {
+  display:flex; align-items:center; gap:8px;
+  padding:6px 12px;
+  border:1px solid var(--line2);
+  font-family:var(--font-mono); font-size:11px;
+  letter-spacing:.05em; color:var(--head);
+}
+.br-wallet-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:#27ae60;
+  animation:pulse 2s ease infinite;
+}
+.br-pill-disconnect {
+  background:none; border:none;
+  font-size:14px; color:var(--muted);
+  cursor:pointer; padding:0 0 0 4px;
+  line-height:1; transition:color .15s;
+}
+.br-pill-disconnect:hover { color:var(--head); }
+
+/* ── Cards (From / To) ── */
+.br-card {
+  padding:20px;
+  background:rgba(26,48,128,.025);
+  border:1px solid var(--line2);
+  transition:border-color .15s;
+}
+.br-card:focus-within {
+  border-color:rgba(26,48,128,.2);
+}
+
+.br-card-header {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:16px;
+}
+.br-card-label {
+  font-family:var(--font-mono); font-size:10px;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--muted); font-weight:500;
+}
+
+/* Chain badge */
+.br-chain-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px;
+  border:1px solid var(--line2);
+  font-family:var(--font-mono); font-size:11px;
+  letter-spacing:.06em; color:var(--head); font-weight:500;
+}
+.br-chain-icon {
+  width:8px; height:8px; border-radius:50%;
+  flex-shrink:0;
+}
+.br-chain-akyra .br-chain-icon {
+  background:var(--blue);
+}
+
+/* Amount row (From card) */
+.br-amount-row {
+  display:flex; align-items:center; gap:12px;
+}
+.br-amount-input {
+  flex:1; min-width:0;
+  background:transparent; border:none; outline:none;
+  font-family:var(--font-mono); font-size:28px;
+  font-weight:600; color:var(--head);
+  letter-spacing:-.01em;
+  padding:0;
+}
+.br-amount-input::placeholder {
+  color:var(--muted); opacity:.3;
+}
+/* Hide number spinners */
+.br-amount-input::-webkit-inner-spin-button,
+.br-amount-input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+.br-amount-input[type=number] { -moz-appearance:textfield; }
+
+/* Token badge */
+.br-token-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 12px;
+  background:rgba(26,48,128,.06);
+  border:1px solid var(--line2);
+  font-family:var(--font-mono); font-size:13px;
+  font-weight:600; color:var(--head);
+  letter-spacing:.04em;
+  flex-shrink:0;
+}
+.br-token-icon {
+  width:20px; height:20px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--blue);
+  color:#fff; font-size:12px; font-weight:700;
+}
+
+/* Card footer (balance + MAX) */
+.br-card-footer {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid var(--line2);
+}
+.br-balance {
+  font-family:var(--font-mono); font-size:10px;
+  letter-spacing:.08em; color:var(--muted);
+}
+.br-max-btn {
+  padding:3px 10px;
+  font-family:var(--font-mono); font-size:9px;
+  font-weight:700; letter-spacing:.2em;
+  color:var(--blue2); background:rgba(42,80,200,.06);
+  border:1px solid rgba(42,80,200,.15);
+  cursor:pointer; transition:all .15s;
+}
+.br-max-btn:hover {
+  background:rgba(42,80,200,.12);
+  border-color:rgba(42,80,200,.3);
+}
+
+/* ── Arrow separator ── */
+.br-arrow-separator {
+  display:flex; justify-content:center;
+  margin:-1px 0;
+  position:relative; z-index:1;
+}
+.br-arrow-circle {
+  width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--bg);
+  border:1px solid var(--line2);
+  font-size:16px; color:var(--blue);
+  font-weight:600;
+}
+
+/* Receive row (To card) */
+.br-receive-row {
+  display:flex; align-items:center; gap:12px;
+}
+.br-receive-amount {
+  flex:1;
+  font-family:var(--font-mono); font-size:28px;
+  font-weight:600; color:var(--head);
+  letter-spacing:-.01em;
+  opacity:.5;
+}
+
+/* Time estimate */
+.br-time-estimate {
+  display:none;
+  text-align:center;
+  margin-top:16px;
+  font-family:var(--font-mono); font-size:10px;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--muted);
+  padding:8px 0;
+}
+
+/* ── Main action button ── */
+.br-main-btn {
+  width:100%;
+  margin-top:20px;
+  padding:14px 24px;
+  font-size:13px;
+  letter-spacing:.12em;
+}
+
+/* Add chain link */
+.br-add-chain {
+  display:block; width:100%; margin-top:12px;
+  padding:10px; text-align:center;
+  font-family:var(--font-mono); font-size:9px;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--blue2); background:transparent;
+  border:1px dashed var(--line2);
+  cursor:pointer; transition:all .15s;
+}
+.br-add-chain:hover {
+  border-color:var(--blue2);
+  background:rgba(42,80,200,.04);
+}
+
+/* Error */
+.br-error {
+  display:none;
+  margin-top:12px;
+  font-family:var(--font-mono); font-size:11px;
+  letter-spacing:.05em; color:#c0392b;
+  text-align:center;
+}
+
+/* ── TX view ── */
+.br-tx-status {
+  text-align:center; padding:32px 0 16px;
+}
+.br-tx-title {
+  font-family:var(--font-title); font-weight:700;
+  font-size:22px; color:var(--head); margin-top:16px;
+}
+.br-tx-sub {
+  font-family:var(--font-mono); font-size:11px;
+  color:var(--muted); letter-spacing:.06em;
+  margin-top:8px; line-height:1.6;
+}
+
+/* Spinner */
+.br-spinner {
+  width:40px; height:40px; margin:0 auto;
+  border:2px solid var(--line);
+  border-top-color:var(--blue);
+  animation:br-spin .8s linear infinite;
+}
+@keyframes br-spin { to { transform:rotate(360deg); } }
+
+/* Success check */
+.br-tx-success {
+  display:flex; justify-content:center;
+}
+
+/* Explorer links */
+.br-tx-links {
+  display:flex; flex-direction:column; align-items:center;
+  gap:8px; margin-top:16px;
+}
+.br-link {
+  font-family:var(--font-mono); font-size:11px;
+  letter-spacing:.08em; color:var(--blue2);
+  text-decoration:none; transition:color .15s;
+}
+.br-link:hover { color:var(--blue); }
+
+/* ═══════════════════════════════════════════
    STATS STRIP — FAQ → CTA transition
 ═══════════════════════════════════════════ */
 .stats-strip {
