@@ -1151,8 +1151,9 @@ window.addEventListener('load', () => {
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
 
-<!-- Bridge modal open/close — pas de dépendance module -->
+<!-- Bridge — fonctions de base + fallback MetaMask (AppKit module override ensuite) -->
 <script>
+  /* ── Modal ── */
   function openBridge() {
     var m = document.getElementById('bridge-modal');
     if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
@@ -1163,10 +1164,118 @@ window.addEventListener('load', () => {
   }
   document.addEventListener('DOMContentLoaded', function() {
     var m = document.getElementById('bridge-modal');
-    if (m) m.addEventListener('click', function(e) {
-      if (e.target === m) closeBridge();
+    if (m) m.addEventListener('click', function(e) { if (e.target === m) closeBridge(); });
+    var inp = document.getElementById('br-amount');
+    if (inp) inp.addEventListener('input', function() {
+      var v = parseFloat(inp.value);
+      var r = document.getElementById('br-receive-amount');
+      if (r) r.textContent = (!v || v <= 0) ? '0' : inp.value;
     });
   });
+
+  /* ── Helpers partagés ── */
+  function _brTrunc(a) { return a.slice(0,6)+'···'+a.slice(-4); }
+  function _brErr(id, msg) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = msg ? 'block' : 'none';
+  }
+  function _brSetConnected(addr) {
+    var pill = document.getElementById('br-wallet-pill');
+    var addrEl = document.getElementById('br-addr');
+    var cb = document.getElementById('br-connect-btn');
+    var db = document.getElementById('br-deposit-btn');
+    var tr = document.getElementById('br-time-row');
+    if (addrEl) addrEl.textContent = _brTrunc(addr);
+    if (pill) pill.style.display = 'flex';
+    if (cb)   cb.style.display   = 'none';
+    if (db)   db.style.display   = 'block';
+    if (tr)   tr.style.display   = 'block';
+  }
+
+  /* ── Fallback bridgeConnect (MetaMask direct) — remplacé par AppKit si module ok ── */
+  window._brProvider = null;
+  window._brSigner   = null;
+  window._brAddr     = null;
+
+  window.bridgeConnect = async function() {
+    _brErr('br-connect-error', '');
+    var btn = document.getElementById('br-connect-btn');
+    if (!window.ethereum) {
+      _brErr('br-connect-error', 'Installe MetaMask pour connecter un wallet.');
+      return;
+    }
+    if (btn) { btn.textContent = 'Connexion…'; btn.disabled = true; }
+    try {
+      var accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if (!accounts.length) throw new Error('no accounts');
+      window._brProvider = new window.ethers.BrowserProvider(window.ethereum);
+      window._brSigner   = await window._brProvider.getSigner();
+      window._brAddr     = await window._brSigner.getAddress();
+      /* Switch Sepolia si besoin */
+      var net = await window._brProvider.getNetwork();
+      if (Number(net.chainId) !== 11155111) {
+        if (btn) btn.textContent = 'Switch Sepolia…';
+        await window.ethereum.request({ method:'wallet_switchEthereumChain', params:[{chainId:'0xaa36a7'}] });
+        window._brProvider = new window.ethers.BrowserProvider(window.ethereum);
+        window._brSigner   = await window._brProvider.getSigner();
+      }
+      _brSetConnected(window._brAddr);
+      /* Balance */
+      var bal = await window._brProvider.getBalance(window._brAddr);
+      var balEl = document.getElementById('br-balance-val');
+      if (balEl) balEl.textContent = parseFloat(window.ethers.formatEther(bal)).toFixed(5)+' ETH';
+    } catch(err) {
+      _brErr('br-connect-error', err.code===4001 ? 'Connexion annulée.' : 'Erreur de connexion.');
+    }
+    if (btn) { btn.textContent = 'Connect wallet'; btn.disabled = false; }
+  };
+
+  window.bridgeDisconnect = function() {
+    window._brProvider = null; window._brSigner = null; window._brAddr = null;
+    var pill = document.getElementById('br-wallet-pill');
+    var cb   = document.getElementById('br-connect-btn');
+    var db   = document.getElementById('br-deposit-btn');
+    var tr   = document.getElementById('br-time-row');
+    if (pill) pill.style.display = 'none';
+    if (cb)   cb.style.display   = 'block';
+    if (db)   db.style.display   = 'none';
+    if (tr)   tr.style.display   = 'none';
+    _brErr('br-connect-error',''); _brErr('br-form-error','');
+  };
+
+  window.bridgeMax = async function() {
+    if (!window._brProvider || !window._brAddr) return;
+    try {
+      var bal = await window._brProvider.getBalance(window._brAddr);
+      var res = window.ethers.parseEther('0.01');
+      var max = bal > res ? bal - res : 0n;
+      var inp = document.getElementById('br-amount');
+      if (inp) { inp.value = window.ethers.formatEther(max); inp.dispatchEvent(new Event('input')); }
+    } catch(e) {}
+  };
+
+  window.bridgeAddChain = async function() {
+    var eth = window.ethereum;
+    if (!eth) { _brErr('br-connect-error','Connect un wallet d\'abord.'); return; }
+    try {
+      await eth.request({ method:'wallet_addEthereumChain', params:[{
+        chainId:'0xb85d', chainName:'AKYRA L2 Testnet',
+        nativeCurrency:{name:'Ether',symbol:'ETH',decimals:18},
+        rpcUrls:['http://35.233.51.51:8545'],
+        blockExplorerUrls:['http://35.233.51.51:4000'],
+      }]});
+    } catch(e) {}
+  };
+
+  window.bridgeReset = function() {
+    document.getElementById('br-main-view').style.display = 'block';
+    document.getElementById('br-tx-view').style.display   = 'none';
+    var inp = document.getElementById('br-amount');
+    if (inp) { inp.value=''; inp.dispatchEvent(new Event('input')); }
+    _brErr('br-form-error','');
+  };
 </script>
 
 <script type="module" src="js/bridge.js"></script>
