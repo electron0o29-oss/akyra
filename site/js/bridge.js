@@ -153,17 +153,22 @@
       return;
     }
 
-    setBtnState('br-connect-btn', 'Connecting...', true);
+    setBtnState('br-connect-btn', 'Check MetaMask ↑', true);
+    showError('br-connect-error', '');
 
     try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      /* Step 1 — request accounts (opens MetaMask popup) */
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if (!accounts || accounts.length === 0) throw new Error('No accounts returned');
+
       provider = new ethers.BrowserProvider(window.ethereum);
       signer = await provider.getSigner();
       userAddr = await signer.getAddress();
 
-      /* Verify Sepolia */
+      /* Step 2 — verify / switch to Sepolia */
       const network = await provider.getNetwork();
       if (Number(network.chainId) !== CFG.l1ChainId) {
+        setBtnState('br-connect-btn', 'Switch to Sepolia ↑', true);
         try {
           await window.ethereum.request({
             method: 'wallet_switchEthereumChain',
@@ -171,27 +176,30 @@
           });
           provider = new ethers.BrowserProvider(window.ethereum);
           signer = await provider.getSigner();
+          userAddr = await signer.getAddress();
         } catch (switchErr) {
-          showError('br-connect-error', 'Please switch to Sepolia testnet in MetaMask.');
+          showError('br-connect-error', 'Switch to Sepolia testnet in MetaMask to use the bridge.');
           setBtnState('br-connect-btn', 'Connect wallet', false);
           return;
         }
       }
 
-      /* Success — update UI */
+      /* Success */
       $('br-addr').textContent = truncAddr(userAddr);
       setConnectedUI(true);
       await refreshBalance();
 
-      /* Listeners */
       window.ethereum.on('accountsChanged', handleAccountChange);
       window.ethereum.on('chainChanged', handleChainChange);
 
     } catch (err) {
-      if (err.code === 4001) {
-        showError('br-connect-error', 'Wallet connection cancelled.');
+      if (err.code === 4001 || err.code === 'ACTION_REJECTED') {
+        showError('br-connect-error', 'Connection cancelled.');
+      } else if (!window.ethereum) {
+        showError('br-connect-error', 'MetaMask not detected.');
       } else {
-        showError('br-connect-error', 'Connection failed. Try again.');
+        showError('br-connect-error', 'Connection failed — check MetaMask and retry.');
+        console.error('[bridge] connect error:', err);
       }
       setBtnState('br-connect-btn', 'Connect wallet', false);
     }

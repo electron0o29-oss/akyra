@@ -2186,10 +2186,14 @@ footer {
 /* Error */
 .br-error {
   display:none;
-  margin-top:12px;
+  margin-top:14px;
+  padding:10px 14px;
+  background:rgba(192,57,43,.06);
+  border:1px solid rgba(192,57,43,.2);
   font-family:var(--font-mono); font-size:11px;
-  letter-spacing:.05em; color:#c0392b;
+  letter-spacing:.04em; color:#c0392b;
   text-align:center;
+  line-height:1.5;
 }
 
 /* ── TX view ── */
