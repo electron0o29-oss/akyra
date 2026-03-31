@@ -136,28 +136,6 @@ appKit.subscribeAccount(async (account) => {
 });
 
 /* ════════════════════════════════════
-   MODAL OPEN / CLOSE
-════════════════════════════════════ */
-
-window.openBridge = function () {
-  const m = $('bridge-modal');
-  if (!m) return;
-  m.classList.add('open');
-  document.body.style.overflow = 'hidden';
-};
-
-window.closeBridge = function () {
-  const m = $('bridge-modal');
-  if (!m) return;
-  m.classList.remove('open');
-  document.body.style.overflow = '';
-};
-
-$('bridge-modal')?.addEventListener('click', e => {
-  if (e.target === $('bridge-modal')) window.closeBridge();
-});
-
-/* ════════════════════════════════════
    WALLET CONNECT / DISCONNECT
 ════════════════════════════════════ */
 
